@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.planboard.ui.news.NewsFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_news" >
+        <action
+            android:id="@+id/action_navigation_home_to_newsDetailFragment"
+            app:destination="@id/newsDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.example.planboard.ui.plan.PlanFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_plan" />
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="com.example.planboard.ui.balance.BalanceFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_balance" />
+
+    <fragment
+        android:id="@+id/newsDetailFragment"
+        android:name="com.example.planboard.ui.news.NewsDetailFragment"
+        android:label="fragment_news_detail"
+        tools:layout="@layout/fragment_news_detail">
+        <argument
+            android:name="newsUrl"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+</navigation>
