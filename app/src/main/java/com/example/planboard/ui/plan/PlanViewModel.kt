@@ -1,13 +1,27 @@
 package com.example.planboard.ui.plan
 
+
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.planboard.ui.plan.room.EntityPlan
+import com.example.planboard.ui.plan.room.PlanDatabase
+import com.example.planboard.ui.plan.room.PlanRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class PlanViewModel : ViewModel() {
+class PlanViewModel(application: Application) : AndroidViewModel(application) {
+    private val repository: PlanRepository
+    val allPlans: LiveData<List<EntityPlan>>
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
+    init {
+        val plansDao = PlanDatabase.getDatabase(application).planDao()
+        repository = PlanRepository(plansDao)
+        allPlans = repository.allPlans
     }
-    val text: LiveData<String> = _text
+
+    fun insert(entityPlan: EntityPlan) = viewModelScope.launch(Dispatchers.IO) {
+        repository.insert(entityPlan)
+    }
 }

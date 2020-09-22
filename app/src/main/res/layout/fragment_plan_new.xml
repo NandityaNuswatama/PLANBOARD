@@ -28,7 +28,7 @@
         app:layout_constraintStart_toEndOf="@+id/textView9" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/inputJudul"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -37,7 +37,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:padding="8dp"
-        android:text="Name"
+        android:hint="Name"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView9"
@@ -50,8 +50,8 @@
         android:layout_marginTop="24dp"
         android:text="*"
         android:textColor="#FF0000"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintStart_toStartOf="@+id/inputJudul"
+        app:layout_constraintTop_toBottomOf="@+id/inputJudul" />
 
     <TextView
         android:id="@+id/textView13"
@@ -69,11 +69,11 @@
         android:layout_marginTop="24dp"
         android:text="Target"
         android:textColor="#000000"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextMultiLine"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine" />
+        app:layout_constraintStart_toStartOf="@+id/inputRencana"
+        app:layout_constraintTop_toBottomOf="@+id/inputRencana" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine"
+        android:id="@+id/inputRencana"
         android:layout_width="0dp"
         android:layout_height="170dp"
         android:layout_marginTop="4dp"
@@ -84,12 +84,12 @@
         android:inputType="textMultiLine"
         android:padding="8dp"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/inputJudul"
         app:layout_constraintStart_toStartOf="@+id/textView12"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     <EditText
-        android:id="@+id/editTextDate"
+        android:id="@+id/inputTarget"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -98,21 +98,21 @@
         android:inputType="date"
         android:padding="8dp"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextMultiLine"
+        app:layout_constraintEnd_toEndOf="@+id/inputRencana"
         app:layout_constraintStart_toStartOf="@+id/textView14"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_savePlan"
         android:layout_width="150dp"
         android:layout_height="36dp"
         android:layout_marginTop="80dp"
         android:background="@drawable/button_main"
-        android:enabled="false"
+        android:enabled="true"
         android:text="SIMPAN"
         android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="@+id/editTextDate"
-        app:layout_constraintStart_toStartOf="@+id/editTextDate"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
+        app:layout_constraintEnd_toEndOf="@+id/inputTarget"
+        app:layout_constraintStart_toStartOf="@+id/inputTarget"
+        app:layout_constraintTop_toBottomOf="@+id/inputTarget" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
