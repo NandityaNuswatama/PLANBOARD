@@ -10,9 +10,6 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.planboard.R
-import com.example.planboard.ui.plan.PlanFragment.Companion.date_
-import com.example.planboard.ui.plan.PlanFragment.Companion.plan_
-import com.example.planboard.ui.plan.PlanFragment.Companion.title_
 import com.example.planboard.ui.plan.room.EntityPlan
 import kotlinx.android.synthetic.main.fragment_plan_new.*
 
@@ -35,10 +32,11 @@ class PlanNewFragment : Fragment() {
 
         btn_savePlan.setOnClickListener {
             if (inputJudul.text.isEmpty() && inputRencana.text.isEmpty()){
+                btn_savePlan.isEnabled = false
                 Toast.makeText(activity, "Judul dan Rencana harus diisi", Toast.LENGTH_SHORT).show()
             }
             else{
-                btn_savePlan.isEnabled
+                btn_savePlan.isEnabled = true
                 saveToDatabase()
                 findNavController().navigate(R.id.action_planNewFragment_to_navigation_dashboard)
             }

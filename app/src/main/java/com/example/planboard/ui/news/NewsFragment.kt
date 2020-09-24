@@ -72,7 +72,6 @@ class NewsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     private fun showRecyclerview(){
         newsAdapter = NewsAdapter(articleList)
         newsAdapter.setNews(articleList)
-        rv_berita.setHasFixedSize(true)
         rv_berita.layoutManager = LinearLayoutManager(activity)
         rv_berita.adapter = newsAdapter
         rv_berita.itemAnimator = DefaultItemAnimator()

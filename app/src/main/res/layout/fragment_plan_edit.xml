@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.plan.PlanNewFragment">
-
+    tools:context=".ui.plan.PlanEditFragment">
 
     <TextView
         android:id="@+id/textView9"
@@ -28,7 +27,7 @@
         app:layout_constraintStart_toEndOf="@+id/textView9" />
 
     <EditText
-        android:id="@+id/inputJudul"
+        android:id="@+id/inputEditJudul"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -37,7 +36,6 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:padding="8dp"
-        android:hint="Name"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView9"
@@ -50,8 +48,8 @@
         android:layout_marginTop="24dp"
         android:text="*"
         android:textColor="#FF0000"
-        app:layout_constraintStart_toStartOf="@+id/inputJudul"
-        app:layout_constraintTop_toBottomOf="@+id/inputJudul" />
+        app:layout_constraintStart_toStartOf="@+id/inputEditJudul"
+        app:layout_constraintTop_toBottomOf="@+id/inputEditJudul" />
 
     <TextView
         android:id="@+id/textView13"
@@ -62,6 +60,21 @@
         app:layout_constraintBottom_toBottomOf="@+id/textView12"
         app:layout_constraintStart_toEndOf="@+id/textView12" />
 
+    <EditText
+        android:id="@+id/inputEditRencana"
+        android:layout_width="0dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/background_grid"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:padding="8dp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/inputEditJudul"
+        app:layout_constraintStart_toStartOf="@+id/textView12"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
     <TextView
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
@@ -69,27 +82,11 @@
         android:layout_marginTop="24dp"
         android:text="Target"
         android:textColor="#000000"
-        app:layout_constraintStart_toStartOf="@+id/inputRencana"
-        app:layout_constraintTop_toBottomOf="@+id/inputRencana" />
+        app:layout_constraintStart_toStartOf="@+id/inputEditRencana"
+        app:layout_constraintTop_toBottomOf="@+id/inputEditRencana" />
 
     <EditText
-        android:id="@+id/inputRencana"
-        android:layout_width="0dp"
-        android:layout_height="170dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/background_grid"
-        android:ems="10"
-        android:gravity="start|top"
-        android:hint="Tuliskan strategi dan rencana dalam bentuk list"
-        android:inputType="textMultiLine"
-        android:padding="8dp"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/inputJudul"
-        app:layout_constraintStart_toStartOf="@+id/textView12"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
-
-    <EditText
-        android:id="@+id/inputTarget"
+        android:id="@+id/inputEditTarget"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -98,21 +95,37 @@
         android:inputType="textPersonName"
         android:padding="8dp"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/inputRencana"
+        app:layout_constraintEnd_toEndOf="@+id/inputEditRencana"
         app:layout_constraintStart_toStartOf="@+id/textView14"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
     <Button
-        android:id="@+id/btn_savePlan"
+        android:id="@+id/btn_updatePlan"
         android:layout_width="150dp"
         android:layout_height="36dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="80dp"
         android:background="@drawable/button_main"
         android:enabled="true"
-        android:text="SIMPAN"
+        android:text="UBAH"
         android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="@+id/inputTarget"
-        app:layout_constraintStart_toStartOf="@+id/inputTarget"
-        app:layout_constraintTop_toBottomOf="@+id/inputTarget" />
+        app:layout_constraintEnd_toStartOf="@+id/btn_deletePlan"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputEditTarget" />
+
+    <Button
+        android:id="@+id/btn_deletePlan"
+        android:layout_width="150dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/button_2"
+        android:enabled="true"
+        android:text="HAPUS"
+        android:textColor="@color/colorAccent2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_updatePlan"
+        app:layout_constraintTop_toTopOf="@+id/btn_updatePlan" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

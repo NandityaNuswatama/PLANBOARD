@@ -7,7 +7,7 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/textView18"
+        android:id="@+id/tv_tanda"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -18,30 +18,30 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView19"
+        android:id="@+id/tv_nominal"
         android:layout_width="90dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/lato"
         android:text="Rp. 1.500.000"
         android:textAlignment="textStart"
         android:textColor="#000000"
-        app:layout_constraintStart_toEndOf="@+id/textView18"
+        app:layout_constraintStart_toEndOf="@+id/tv_tanda"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView20"
+        android:id="@+id/tv_purpose"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/lato"
         android:text="Give Away"
         android:textAlignment="center"
         android:textColor="#000000"
-        app:layout_constraintEnd_toStartOf="@+id/textView21"
-        app:layout_constraintStart_toEndOf="@+id/textView19"
+        app:layout_constraintEnd_toStartOf="@+id/tv_date_balance"
+        app:layout_constraintStart_toEndOf="@+id/tv_nominal"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView21"
+        android:id="@+id/tv_date_balance"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -51,4 +51,14 @@
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_balance_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/tv_date_balance"
+        app:layout_constraintStart_toEndOf="@+id/tv_purpose"
+        app:layout_constraintTop_toTopOf="@+id/tv_date_balance" />
 </androidx.constraintlayout.widget.ConstraintLayout>

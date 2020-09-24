@@ -15,17 +15,11 @@ abstract class PlanDatabase : RoomDatabase() {
         private var INSTANCE: PlanDatabase? = null
 
         fun getDatabase(context: Context): PlanDatabase{
-            val temporary = INSTANCE
-            if(temporary != null){
-                return temporary
+            if(INSTANCE == null){
+                INSTANCE = Room.databaseBuilder(context.applicationContext, PlanDatabase::class.java, "plan_table")
+                    .build()
             }
-            synchronized(this){
-                val instance = Room.databaseBuilder(
-                    context.applicationContext, PlanDatabase::class.java, "plan_database"
-                ).build()
-                INSTANCE = instance
-                return instance
-            }
+            return INSTANCE as PlanDatabase
         }
     }
 }

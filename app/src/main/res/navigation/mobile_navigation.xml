@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_navigation_dashboard_to_planNewFragment"
             app:destination="@id/planNewFragment" />
+        <action
+            android:id="@+id/action_navigation_dashboard_to_planEditFragment"
+            app:destination="@id/planEditFragment" />
     </fragment>
 
     <fragment
@@ -41,6 +44,7 @@
             app:argType="string"
             app:nullable="true" />
     </fragment>
+
     <fragment
         android:id="@+id/planNewFragment"
         android:name="com.example.planboard.ui.plan.PlanNewFragment"
@@ -48,6 +52,20 @@
         tools:layout="@layout/fragment_plan_new" >
         <action
             android:id="@+id/action_planNewFragment_to_navigation_dashboard"
+            app:destination="@id/navigation_dashboard" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/planEditFragment"
+        android:name="com.example.planboard.ui.plan.PlanEditFragment"
+        android:label="fragment_plan_edit"
+        tools:layout="@layout/fragment_plan_edit" >
+        <argument
+            android:name="planEdit"
+            app:argType="string"
+            app:nullable="true"/>
+        <action
+            android:id="@+id/action_planEditFragment_to_navigation_dashboard"
             app:destination="@id/navigation_dashboard" />
     </fragment>
 </navigation>

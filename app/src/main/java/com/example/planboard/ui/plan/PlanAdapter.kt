@@ -9,6 +9,15 @@ import com.example.planboard.ui.plan.room.EntityPlan
 import kotlinx.android.synthetic.main.item_grid.view.*
 
 class PlanAdapter(private var plans: List<EntityPlan>): RecyclerView.Adapter<PlanAdapter.PlanViewHolder>() {
+    private var onItemClickCallback: OnItemClickCallback? = null
+
+    interface OnItemClickCallback {
+        fun onItemClicked(plan: EntityPlan)
+    }
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback){
+        this.onItemClickCallback = onItemClickCallback
+    }
 
     inner class PlanViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(entityPlan: EntityPlan){
@@ -16,6 +25,7 @@ class PlanAdapter(private var plans: List<EntityPlan>): RecyclerView.Adapter<Pla
                 tv_judul_rencana.text = entityPlan.title
                 tv_rencana.text = entityPlan.plan
                 tv_tanggal_rencana.text = entityPlan.date
+                itemView.setOnClickListener { onItemClickCallback?.onItemClicked(entityPlan) }
             }
         }
     }
