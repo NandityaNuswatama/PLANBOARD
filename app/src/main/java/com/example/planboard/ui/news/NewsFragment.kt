@@ -25,6 +25,7 @@ import kotlinx.android.synthetic.main.fragment_news.*
 import kotlinx.android.synthetic.main.item_news.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import timber.log.Timber
 
 class NewsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     private val endPointUrl by lazy { "https://newsapi.org/v2/" }
@@ -102,7 +103,7 @@ class NewsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                 }
             }
             override fun onError(e: Throwable) {
-                Log.e("createArticleObserver", "Article error: ${e.message}")
+                Timber.e("createArticleObserver, Article error: ${e.message}")
                 Toast.makeText(activity, "Network error", Toast.LENGTH_SHORT).show()
             }
             override fun onComplete() {

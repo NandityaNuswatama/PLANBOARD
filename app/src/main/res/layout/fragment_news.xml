@@ -24,4 +24,5 @@
                 app:layout_constraintStart_toStartOf="parent"
                 tools:listitem="@layout/item_news" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

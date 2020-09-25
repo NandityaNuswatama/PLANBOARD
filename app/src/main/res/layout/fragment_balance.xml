@@ -130,6 +130,31 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView4"
             tools:listitem="@layout/item_balance" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/img_money_tree"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:layout_constraintBottom_toBottomOf="@+id/rv_balance"
+            app:layout_constraintEnd_toEndOf="@+id/rv_balance"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_balance_hint"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="moneytree.json"
+            app:lottie_loop="true" />
+
+        <TextView
+            android:id="@+id/tv_balance_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/lato_bold"
+            android:text="Yuk Catat Keuanganmu!"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/rv_balance" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView

@@ -8,8 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import com.example.planboard.PlanboardActivity
 import com.example.planboard.R
+import kotlinx.android.synthetic.main.activity_planboard.*
 import kotlinx.android.synthetic.main.fragment_news_detail.*
+import timber.log.Timber
 
 class NewsDetailFragment : Fragment() {
     companion object{
@@ -36,7 +39,23 @@ class NewsDetailFragment : Fragment() {
         if(arguments != null){
             val url = requireArguments().getString(newsUrl).toString()
             webView.loadUrl(url)
-            Log.d("NEWS DETAIL", url)
+            Timber.tag("NEWS DETAIL").d(url)
+        }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        if (activity is PlanboardActivity){
+            val planboardActivity = activity as PlanboardActivity
+            planboardActivity.nav_view.visibility = View.GONE
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (activity is PlanboardActivity){
+            val planboardActivity = activity as PlanboardActivity
+            planboardActivity.nav_view.visibility = View.VISIBLE
         }
     }
 }

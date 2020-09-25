@@ -1,17 +1,17 @@
 package com.example.planboard.ui.balance
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.planboard.R
 import com.example.planboard.ui.balance.room.EntityBalance
 import kotlinx.android.synthetic.main.fragment_balance.*
-import kotlinx.android.synthetic.main.item_balance.*
+import timber.log.Timber
 
 class BalanceFragment : Fragment(), View.OnClickListener {
 
@@ -57,12 +57,20 @@ class BalanceFragment : Fragment(), View.OnClickListener {
     }
 
     private fun showRecyclerView(){
-        balanceAdapter = BalanceAdapter(balance)
-        rv_balance.adapter = balanceAdapter
-        rv_balance.layoutManager = LinearLayoutManager(requireContext())
-        rv_balance.setHasFixedSize(true)
+        if (rv_balance.size != 0) {
+            img_money_tree.visibility = View.GONE
+            tv_balance_hint.visibility = View.GONE
+            balanceAdapter = BalanceAdapter(balance)
+            rv_balance.adapter = balanceAdapter
+            rv_balance.layoutManager = LinearLayoutManager(requireContext())
+            rv_balance.setHasFixedSize(true)
 
-        observeLiveData()
+            observeLiveData()
+        } else {
+            img_money_tree.visibility = View.VISIBLE
+            tv_balance_hint.visibility = View.VISIBLE
+        }
+
     }
 
 
@@ -71,6 +79,7 @@ class BalanceFragment : Fragment(), View.OnClickListener {
             balance?.let { balanceAdapter.setBalance(it as ArrayList<EntityBalance>)
             }
         })
+
     }
 
     private fun saveToDatabase(id: Int){
@@ -84,7 +93,7 @@ class BalanceFragment : Fragment(), View.OnClickListener {
                     date = inputTanggal.text.toString()
                 )
                 balanceViewModel.insert(mBalance)
-                Log.d("IdBalance: ", mBalance.idBalance.toString())
+                Timber.tag("IdBalance: ").d(mBalance.idBalance.toString())
             }
             idOutcome -> {
                 val mBalance = EntityBalance(
@@ -95,7 +104,7 @@ class BalanceFragment : Fragment(), View.OnClickListener {
                     date = inputTanggal.text.toString()
                 )
                 balanceViewModel.insert(mBalance)
-                Log.d("IdBalance: ", mBalance.idBalance.toString())
+                Timber.tag("IdBalance: ").d(mBalance.idBalance.toString())
             }
         }
     }

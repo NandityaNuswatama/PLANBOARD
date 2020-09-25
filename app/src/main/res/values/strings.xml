@@ -7,4 +7,5 @@
     <string name="api_key">25d8037ccfd54f88a9304593d5235fb3</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dummy_text_long">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tortor dui, dapibus sit amet porta varius, tempor sit amet augue. Fusce nec lobortis sem. Etiam tristique augue elementum erat lacinia volutpat eget et nunc.</string>
 </resources>

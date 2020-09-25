@@ -15,7 +15,7 @@ interface BalanceDao {
     fun getBalance(): LiveData<EntityBalance>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(entityBalance: EntityBalance)
+    suspend fun insert(entityBalance: EntityBalance): Long
 
     @Query("DELETE FROM balance_table WHERE idBalance =:id")
     suspend fun deleteById(id: Int)

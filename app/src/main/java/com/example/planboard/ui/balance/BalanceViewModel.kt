@@ -15,22 +15,22 @@ import kotlinx.coroutines.launch
 class BalanceViewModel(application: Application) : AndroidViewModel(application) {
     private val balanceRepository: BalanceRepository
     private val allNominal_: LiveData<List<EntityBalance>>
-//    private val currentBalance_: LiveData<EntityBalance>
+    private val currentBalance_: LiveData<EntityBalance>
 
     init {
         val balanceDao = BalanceDatabase.getDatabase(application).balanceDao()
         balanceRepository = BalanceRepository(balanceDao)
         allNominal_= balanceRepository.allNominal
-//        currentBalance_ = balanceRepository.currentBalance
+        currentBalance_ = balanceRepository.currentBalance
     }
 
     fun getAllBalance(): LiveData<List<EntityBalance>>{
         return balanceRepository.allNominal
     }
 
-//    fun currentBalance(): LiveData<EntityBalance>{
-//        return balanceRepository.currentBalance
-//    }
+    fun currentBalance(): LiveData<EntityBalance>{
+        return balanceRepository.currentBalance
+    }
 
     fun insert(entityBalance: EntityBalance) = viewModelScope.launch(Dispatchers.IO){
         balanceRepository.insert(entityBalance)

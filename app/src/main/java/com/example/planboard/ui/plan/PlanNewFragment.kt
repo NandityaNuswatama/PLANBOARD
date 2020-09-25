@@ -9,8 +9,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.planboard.PlanboardActivity
 import com.example.planboard.R
 import com.example.planboard.ui.plan.room.EntityPlan
+import kotlinx.android.synthetic.main.activity_planboard.*
 import kotlinx.android.synthetic.main.fragment_plan_new.*
 
 class PlanNewFragment : Fragment() {
@@ -40,6 +42,22 @@ class PlanNewFragment : Fragment() {
                 saveToDatabase()
                 findNavController().navigate(R.id.action_planNewFragment_to_navigation_dashboard)
             }
+        }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        if (activity is PlanboardActivity){
+            val planboardActivity = activity as PlanboardActivity
+            planboardActivity.nav_view.visibility = View.GONE
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (activity is PlanboardActivity){
+            val planboardActivity = activity as PlanboardActivity
+            planboardActivity.nav_view.visibility = View.VISIBLE
         }
     }
 

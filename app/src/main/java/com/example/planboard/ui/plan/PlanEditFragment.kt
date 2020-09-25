@@ -9,9 +9,12 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.planboard.PlanboardActivity
 import com.example.planboard.R
 import com.example.planboard.ui.plan.room.EntityPlan
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.android.synthetic.main.activity_planboard.*
+import kotlinx.android.synthetic.main.fragment_plan.*
 import kotlinx.android.synthetic.main.fragment_plan_edit.*
 import timber.log.Timber
 
@@ -51,6 +54,22 @@ class PlanEditFragment : Fragment(), View.OnClickListener {
         btn_deletePlan.setOnClickListener(this)
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        if (activity is PlanboardActivity){
+            val planboardActivity = activity as PlanboardActivity
+            planboardActivity.nav_view.visibility = View.GONE
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (activity is PlanboardActivity){
+            val planboardActivity = activity as PlanboardActivity
+            planboardActivity.nav_view.visibility = View.VISIBLE
+        }
+    }
+
     override fun onClick(v: View) {
         when(v.id){
             R.id.btn_updatePlan -> {
@@ -78,7 +97,7 @@ class PlanEditFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    private fun updateDatabase(){
+    private fun updateDatabase() {
         val entityPlan = EntityPlan(
             id = id_.toInt(),
             title = inputEditJudul.text.toString(),
@@ -86,13 +105,13 @@ class PlanEditFragment : Fragment(), View.OnClickListener {
             date = inputEditTarget.text.toString()
         )
         planViewModel.update(entityPlan)
-        Log.d("ID: ", id_)
+        Timber.tag("ID: ").d(id_)
     }
 
     private fun deleteFromDatabase(){
-        if(arguments != null){
+        if(arguments != null) {
             planViewModel.deleteById(id = id_.toInt())
-            Log.d("ID: ", id_)
+            Timber.tag("ID: ").d(id_)
         }
     }
 

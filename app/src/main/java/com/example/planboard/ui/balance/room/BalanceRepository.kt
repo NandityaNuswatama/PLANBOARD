@@ -7,7 +7,7 @@ import kotlinx.coroutines.launch
 
 class BalanceRepository(private val balanceDao: BalanceDao) {
     val allNominal: LiveData<List<EntityBalance>> = balanceDao.getNominal()
-//    val currentBalance: LiveData<EntityBalance> = balanceDao.getBalance()
+    val currentBalance: LiveData<EntityBalance> = balanceDao.getBalance()
 
     fun insert(entityBalance: EntityBalance){
        CoroutineScope(Dispatchers.IO).launch{

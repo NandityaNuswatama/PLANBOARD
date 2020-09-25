@@ -1,10 +1,12 @@
 package com.example.planboard.ui.plan
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -45,22 +47,33 @@ class PlanFragment : Fragment() {
     }
 
     private fun showRecyclerview(){
-        planAdapter = PlanAdapter(plans)
-        observeLiveData()
-        rv_plan.adapter = planAdapter
-        rv_plan.layoutManager = GridLayoutManager(activity, 2)
+        if (rv_plan.size != 0) {
+            img_empty_plan.visibility = View.GONE
+            tv_hint_plan.visibility = View.GONE
+            planAdapter = PlanAdapter(plans)
+            observeLiveData()
+            rv_plan.adapter = planAdapter
+            rv_plan.layoutManager = GridLayoutManager(activity, 2)
 
-        planAdapter.setOnItemClickCallback(object : PlanAdapter.OnItemClickCallback{
-            override fun onItemClicked(plan: EntityPlan) {
-                val bundle = Bundle()
-                bundle.putInt(id_, plan.id)
-                bundle.putString(title_, plan.title)
-                bundle.putString(plan_, plan.plan)
-                bundle.putString(date_, plan.date)
-                findNavController().navigate(R.id.action_navigation_dashboard_to_planEditFragment, bundle)
-                Log.d("ID: ", id_)
-            }
-        })
+            planAdapter.setOnItemClickCallback(object : PlanAdapter.OnItemClickCallback {
+                override fun onItemClicked(plan: EntityPlan) {
+                    val bundle = Bundle()
+                    bundle.putInt(id_, plan.id)
+                    bundle.putString(title_, plan.title)
+                    bundle.putString(plan_, plan.plan)
+                    bundle.putString(date_, plan.date)
+                    findNavController().navigate(
+                        R.id.action_navigation_dashboard_to_planEditFragment,
+                        bundle
+                    )
+                    Timber.tag("ID: ").d(id_)
+                }
+            })
+        }
+        else {
+            img_empty_plan.visibility = View.VISIBLE
+            tv_hint_plan.visibility = View.VISIBLE
+        }
     }
 
     private fun observeLiveData(){
