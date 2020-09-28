@@ -37,6 +37,7 @@ class BalanceFragment : Fragment(), View.OnClickListener {
 
         balanceViewModel = ViewModelProvider(this, ViewModelFactory.getInstance(requireActivity().application)).get(BalanceViewModel::class.java)
         balance = ArrayList()
+        balanceAdapter = BalanceAdapter(balance)
         counter = AtomicInteger()
 
         showRecyclerView()

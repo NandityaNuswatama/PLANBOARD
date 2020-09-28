@@ -35,6 +35,7 @@ class PlanFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         planViewModel = ViewModelProvider(requireActivity(), ViewModelFactory.getInstance(requireActivity().application)).get(PlanViewModel::class.java)
+        planAdapter = PlanAdapter(requireActivity())
         counter = AtomicInteger()
         observeLiveData()
         fab.setOnClickListener {

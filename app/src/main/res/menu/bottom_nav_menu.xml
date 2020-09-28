@@ -4,16 +4,19 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/icon_news"
-        android:title="News" />
+        android:title="Berita"
+        android:visible="false"/>
 
     <item
         android:id="@+id/navigation_dashboard"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="Plan" />
+        android:title="Rencana"
+        android:visible="false"/>
 
     <item
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/icon_money"
-        android:title="Balance" />
+        android:title="Keuangan"
+        android:visible="false"/>
 
 </menu>
