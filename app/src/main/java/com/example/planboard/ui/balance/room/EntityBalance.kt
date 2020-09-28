@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "balance_table")
 class EntityBalance(
-    @PrimaryKey(autoGenerate = true) var idBalance: Long = 0,
+    @PrimaryKey(autoGenerate = true) var idBalance: Int = 0,
     @ColumnInfo(name = "totalBalance") var totalBalance: String,
     @ColumnInfo(name = "nominal") var nominal: String,
     @ColumnInfo(name = "sign") var sign: String,

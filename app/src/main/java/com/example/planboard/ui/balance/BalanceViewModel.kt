@@ -28,6 +28,10 @@ class BalanceViewModel(application: Application) : AndroidViewModel(application)
         return balanceRepository.allNominal
     }
 
+    fun getCount(): Int{
+        return balanceRepository.getCount()
+    }
+
     fun currentBalance(): LiveData<EntityBalance>{
         return balanceRepository.currentBalance
     }

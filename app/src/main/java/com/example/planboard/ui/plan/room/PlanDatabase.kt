@@ -14,10 +14,19 @@ abstract class PlanDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: PlanDatabase? = null
 
+        @JvmStatic
         fun getDatabase(context: Context): PlanDatabase{
             if(INSTANCE == null){
-                INSTANCE = Room.databaseBuilder(context.applicationContext, PlanDatabase::class.java, "plan_table")
-                    .build()
+                synchronized(PlanDatabase::class.java) {
+                    if(INSTANCE == null){
+                        INSTANCE = Room.databaseBuilder(
+                           context.applicationContext,
+                            PlanDatabase::class.java,
+                        "plan_table"
+                        )
+                        .build()
+                    }
+                }
             }
             return INSTANCE as PlanDatabase
         }

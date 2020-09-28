@@ -10,14 +10,17 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.planboard.R
 import com.example.planboard.ui.balance.room.EntityBalance
+import com.example.planboard.util.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_balance.*
 import timber.log.Timber
+import java.util.concurrent.atomic.AtomicInteger
 
 class BalanceFragment : Fragment(), View.OnClickListener {
 
     private lateinit var balanceViewModel: BalanceViewModel
     private lateinit var balance: List<EntityBalance>
     private lateinit var balanceAdapter: BalanceAdapter
+    private lateinit var counter: AtomicInteger
     private val idIncome = 101
     private val idOutcome = 110
 
@@ -32,10 +35,12 @@ class BalanceFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        balanceViewModel = ViewModelProvider(this)[BalanceViewModel::class.java]
+        balanceViewModel = ViewModelProvider(this, ViewModelFactory.getInstance(requireActivity().application)).get(BalanceViewModel::class.java)
         balance = ArrayList()
+        counter = AtomicInteger()
 
         showRecyclerView()
+        observeLiveData()
 
         btn_pemasukan.setOnClickListener(this)
         btn_pengeluaran.setOnClickListener(this)
@@ -51,26 +56,24 @@ class BalanceFragment : Fragment(), View.OnClickListener {
                 saveToDatabase(idOutcome)
             }
             R.id.btn_delete_balance -> {
-
+                deleteFromDatabase()
             }
         }
     }
 
     private fun showRecyclerView(){
-        if (rv_balance.size != 0) {
+        if (getTableRow() > 0) {
             img_money_tree.visibility = View.GONE
             tv_balance_hint.visibility = View.GONE
             balanceAdapter = BalanceAdapter(balance)
             rv_balance.adapter = balanceAdapter
             rv_balance.layoutManager = LinearLayoutManager(requireContext())
             rv_balance.setHasFixedSize(true)
-
-            observeLiveData()
-        } else {
-            img_money_tree.visibility = View.VISIBLE
-            tv_balance_hint.visibility = View.VISIBLE
         }
-
+        else{
+            img_money_tree.visibility = View.VISIBLE
+            tv_balance_hint.visibility = View .VISIBLE
+        }
     }
 
 
@@ -124,5 +127,21 @@ class BalanceFragment : Fragment(), View.OnClickListener {
                 tv_balance.text = balance_.toString()
             }
         }
+    }
+
+    private fun deleteFromDatabase(){
+        getTableRow()
+        balanceViewModel.deleteById(getTableRow())
+    }
+
+    private fun getTableRow(): Int{
+        val t = Thread {
+            val count = balanceViewModel.getCount()
+            counter.set(count)
+        }
+        t.start()
+        t.join()
+
+        return counter.get()
     }
 }

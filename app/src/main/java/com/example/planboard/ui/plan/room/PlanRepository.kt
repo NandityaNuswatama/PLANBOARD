@@ -1,35 +1,37 @@
 package com.example.planboard.ui.plan.room
 
+import android.app.Application
 import androidx.lifecycle.LiveData
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
-class PlanRepository(private val planDao: PlanDao) {
+class PlanRepository(application: Application) {
+    private val mPlanDao: PlanDao
+    private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
 
-    val allPlans: LiveData<List<EntityPlan>> = planDao.getPlans()
+    init {
+        val db = PlanDatabase.getDatabase(application)
+        mPlanDao = db.planDao()
+    }
+
+    fun getAllPlans(): LiveData<List<EntityPlan>> = mPlanDao.getPlans()
+
+    fun getCount(): Int = mPlanDao.getCount()
 
     fun insert(entityPlan: EntityPlan){
-        CoroutineScope(Dispatchers.IO).launch {
-            planDao.insert(entityPlan)
-        }
-    }
-
-    fun deleteById(id: Int){
-        CoroutineScope(Dispatchers.IO).launch {
-            planDao.deleteById(id)
-        }
-    }
-
-    fun update(entityPlan: EntityPlan){
-        CoroutineScope(Dispatchers.IO).launch {
-            planDao.update(entityPlan)
-        }
+        executorService.execute{ mPlanDao.insert(entityPlan) }
     }
 
     fun delete(entityPlan: EntityPlan){
-        CoroutineScope(Dispatchers.IO).launch {
-            planDao.delete(entityPlan)
-        }
+        executorService.execute{ mPlanDao.delete(entityPlan)}
     }
+
+    fun update(entityPlan: EntityPlan){
+        executorService.execute { mPlanDao.update(entityPlan) }
+    }
+
+    fun deleteById(id: Int){
+        executorService.execute { mPlanDao.deleteById(id) }
+    }
+
 }

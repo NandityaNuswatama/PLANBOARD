@@ -13,10 +13,18 @@ abstract class BalanceDatabase: RoomDatabase() {
         @Volatile
         private var INSTANCE: BalanceDatabase? = null
 
+        @JvmStatic
         fun getDatabase(context: Context): BalanceDatabase {
             if(INSTANCE == null){
-                INSTANCE = Room.databaseBuilder(context.applicationContext, BalanceDatabase::class.java, "balance_database")
-                    .build()
+                synchronized(BalanceDatabase::class.java) {
+                    if(INSTANCE == null){
+                            INSTANCE = Room.databaseBuilder(
+                            context.applicationContext,
+                            BalanceDatabase::class.java,
+                            "balance_table"
+                        ).build()
+                    }
+                }
             }
             return INSTANCE as BalanceDatabase
         }

@@ -1,16 +1,15 @@
 package com.example.planboard.ui.plan
 
 import android.os.Bundle
-import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.example.planboard.PlanboardActivity
 import com.example.planboard.R
+import com.example.planboard.util.ViewModelFactory
 import com.example.planboard.ui.plan.room.EntityPlan
 import kotlinx.android.synthetic.main.activity_planboard.*
 import kotlinx.android.synthetic.main.fragment_plan_new.*
@@ -27,34 +26,28 @@ class PlanNewFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_plan_new, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        planViewModel = ViewModelProvider(this)[PlanViewModel::class.java]
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        planViewModel = ViewModelProvider(requireActivity(), ViewModelFactory.getInstance(requireActivity().application)).get(PlanViewModel::class.java)
 
         btn_savePlan.setOnClickListener {
             if (inputJudul.text.isEmpty() && inputRencana.text.isEmpty()){
-                btn_savePlan.isEnabled = false
                 Toast.makeText(activity, "Judul dan Rencana harus diisi", Toast.LENGTH_SHORT).show()
             }
             else{
-                btn_savePlan.isEnabled = true
                 saveToDatabase()
-                findNavController().navigate(R.id.action_planNewFragment_to_navigation_dashboard)
+                requireActivity().onBackPressed()
             }
         }
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         if (activity is PlanboardActivity){
             val planboardActivity = activity as PlanboardActivity
             planboardActivity.nav_view.visibility = View.GONE
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         if (activity is PlanboardActivity){
             val planboardActivity = activity as PlanboardActivity
             planboardActivity.nav_view.visibility = View.VISIBLE

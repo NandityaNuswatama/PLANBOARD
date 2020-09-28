@@ -2,35 +2,26 @@ package com.example.planboard.ui.plan
 
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.ViewModel
 import com.example.planboard.ui.plan.room.EntityPlan
 import com.example.planboard.ui.plan.room.PlanDatabase
 import com.example.planboard.ui.plan.room.PlanRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import java.util.function.IntConsumer
 
-class PlanViewModel(application: Application) : AndroidViewModel(application) {
-    private val repository: PlanRepository
-    private val allPlans: LiveData<List<EntityPlan>>
-
-    init {
-        val plansDao = PlanDatabase.getDatabase(application).planDao()
-        repository = PlanRepository(plansDao)
-        allPlans = repository.allPlans
-    }
+class PlanViewModel(application: Application) : ViewModel() {
+    private val repository: PlanRepository = PlanRepository(application)
 
     fun getAllPlans(): LiveData<List<EntityPlan>>{
-        return repository.allPlans
+        return repository.getAllPlans()
     }
 
-    fun insert(entityPlan: EntityPlan) = viewModelScope.launch(Dispatchers.IO) {
+    fun insert(entityPlan: EntityPlan) {
         repository.insert(entityPlan)
     }
 
-    fun deleteById(id: Int){
-        repository.deleteById(id)
+    fun getCount(): Int{
+        return  repository.getCount()
     }
 
     fun delete(entityPlan: EntityPlan){

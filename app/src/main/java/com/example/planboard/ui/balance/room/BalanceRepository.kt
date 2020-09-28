@@ -20,4 +20,8 @@ class BalanceRepository(private val balanceDao: BalanceDao) {
             balanceDao.deleteById(id)
         }
     }
+
+    fun getCount(): Int{
+        return balanceDao.getCount()
+    }
 }

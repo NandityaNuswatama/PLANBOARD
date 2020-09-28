@@ -14,6 +14,9 @@ interface BalanceDao {
     @Query("SELECT * from balance_table")
     fun getBalance(): LiveData<EntityBalance>
 
+    @Query("SELECT COUNT(*) FROM balance_table")
+    fun getCount(): Int
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(entityBalance: EntityBalance): Long
 

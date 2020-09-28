@@ -1,8 +1,6 @@
 package com.example.planboard.ui.plan
 
-import android.opengl.Visibility
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,20 +9,20 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.planboard.PlanboardActivity
 import com.example.planboard.R
-import com.example.planboard.ui.plan.PlanEditFragment.Companion.date_
-import com.example.planboard.ui.plan.PlanEditFragment.Companion.id_
-import com.example.planboard.ui.plan.PlanEditFragment.Companion.plan_
-import com.example.planboard.ui.plan.PlanEditFragment.Companion.title_
+import com.example.planboard.util.ViewModelFactory
 import com.example.planboard.ui.plan.room.EntityPlan
+import kotlinx.android.synthetic.main.activity_planboard.*
 import kotlinx.android.synthetic.main.fragment_plan.*
 import timber.log.Timber
+import java.util.concurrent.atomic.AtomicInteger
 
 class PlanFragment : Fragment() {
 
     private lateinit var planViewModel: PlanViewModel
     private lateinit var planAdapter: PlanAdapter
-    private lateinit var plans: List<EntityPlan>
+    private lateinit var counter: AtomicInteger
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,43 +32,25 @@ class PlanFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_plan, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        planViewModel = ViewModelProvider(this)[PlanViewModel::class.java]
-        plans = ArrayList()
-
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        planViewModel = ViewModelProvider(requireActivity(), ViewModelFactory.getInstance(requireActivity().application)).get(PlanViewModel::class.java)
+        counter = AtomicInteger()
+        observeLiveData()
         fab.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_dashboard_to_planNewFragment)
         }
-
         showRecyclerview()
     }
 
     private fun showRecyclerview(){
-        if (rv_plan.size != 0) {
+        if(getCount() > 0) {
             img_empty_plan.visibility = View.GONE
             tv_hint_plan.visibility = View.GONE
-            planAdapter = PlanAdapter(plans)
-            observeLiveData()
+            planAdapter = PlanAdapter(requireActivity())
             rv_plan.adapter = planAdapter
             rv_plan.layoutManager = GridLayoutManager(activity, 2)
-
-            planAdapter.setOnItemClickCallback(object : PlanAdapter.OnItemClickCallback {
-                override fun onItemClicked(plan: EntityPlan) {
-                    val bundle = Bundle()
-                    bundle.putInt(id_, plan.id)
-                    bundle.putString(title_, plan.title)
-                    bundle.putString(plan_, plan.plan)
-                    bundle.putString(date_, plan.date)
-                    findNavController().navigate(
-                        R.id.action_navigation_dashboard_to_planEditFragment,
-                        bundle
-                    )
-                    Timber.tag("ID: ").d(id_)
-                }
-            })
-        }
-        else {
+        }else{
             img_empty_plan.visibility = View.VISIBLE
             tv_hint_plan.visibility = View.VISIBLE
         }
@@ -82,4 +62,14 @@ class PlanFragment : Fragment() {
         })
     }
 
+    private fun getCount(): Int{
+        val t = Thread {
+            val count = planViewModel.getCount()
+            counter.set(count)
+        }
+        t.start()
+        t.join()
+
+        return counter.get()
+    }
 }

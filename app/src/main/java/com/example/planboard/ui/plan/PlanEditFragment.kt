@@ -1,20 +1,17 @@
 package com.example.planboard.ui.plan
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.example.planboard.PlanboardActivity
 import com.example.planboard.R
+import com.example.planboard.util.ViewModelFactory
 import com.example.planboard.ui.plan.room.EntityPlan
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_planboard.*
-import kotlinx.android.synthetic.main.fragment_plan.*
 import kotlinx.android.synthetic.main.fragment_plan_edit.*
 import timber.log.Timber
 
@@ -43,27 +40,22 @@ class PlanEditFragment : Fragment(), View.OnClickListener {
         return inflater.inflate(R.layout.fragment_plan_edit, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        planViewModel = ViewModelProvider(this)[PlanViewModel::class.java]
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        planViewModel = ViewModelProvider(this, ViewModelFactory.getInstance(requireActivity().application)).get(PlanViewModel::class.java)
 
         setInitialText()
 
         btn_updatePlan.setOnClickListener(this)
         btn_deletePlan.setOnClickListener(this)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         if (activity is PlanboardActivity){
             val planboardActivity = activity as PlanboardActivity
             planboardActivity.nav_view.visibility = View.GONE
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         if (activity is PlanboardActivity){
             val planboardActivity = activity as PlanboardActivity
             planboardActivity.nav_view.visibility = View.VISIBLE
@@ -99,20 +91,20 @@ class PlanEditFragment : Fragment(), View.OnClickListener {
 
     private fun updateDatabase() {
         val entityPlan = EntityPlan(
-            id = id_.toInt(),
             title = inputEditJudul.text.toString(),
             plan = inputEditRencana.text.toString(),
             date = inputEditTarget.text.toString()
         )
         planViewModel.update(entityPlan)
-        Timber.tag("ID: ").d(id_)
     }
 
     private fun deleteFromDatabase(){
-        if(arguments != null) {
-            planViewModel.deleteById(id = id_.toInt())
-            Timber.tag("ID: ").d(id_)
-        }
+        val entityPlan = EntityPlan(
+            title = inputEditJudul.text.toString(),
+            plan = inputEditRencana.text.toString(),
+            date = inputEditTarget.text.toString()
+        )
+        planViewModel.delete(entityPlan)
     }
 
     private fun showDialog(
@@ -131,7 +123,7 @@ class PlanEditFragment : Fragment(), View.OnClickListener {
                 else {
                     deleteFromDatabase()
                 }
-                findNavController().navigate(R.id.action_planEditFragment_to_navigation_dashboard)
+                requireActivity().onBackPressed()
             }
             setNegativeButton("Batal"){dialog, which ->
                 dialog.cancel()

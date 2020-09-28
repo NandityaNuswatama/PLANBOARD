@@ -5,7 +5,7 @@ import androidx.room.*
 
 @Dao
 interface PlanDao {
-    @Query("SELECT * from plan_table ORDER BY id ASC")
+    @Query("SELECT * from plan_table")
     fun getPlans(): LiveData<List<EntityPlan>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -13,6 +13,9 @@ interface PlanDao {
 
     @Query("DELETE FROM plan_table  WHERE id = :id")
     fun deleteById(id: Int)
+
+    @Query("SELECT COUNT(*) FROM plan_table")
+    fun getCount(): Int
 
     @Update
     fun update(entityPlan: EntityPlan)
