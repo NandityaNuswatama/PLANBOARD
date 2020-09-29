@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:text="*"
+        android:text="@string/bintang"
         android:textColor="#FF0000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,7 +22,7 @@
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Judul"
+        android:text="@string/judul"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="@+id/textView9"
         app:layout_constraintStart_toEndOf="@+id/textView9" />
@@ -37,18 +37,19 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:padding="8dp"
-        android:hint="Name"
+        android:hint="@string/beli_franchise_x"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        android:importantForAutofill="no" />
 
     <TextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="*"
+        android:text="@string/bintang"
         android:textColor="#FF0000"
         app:layout_constraintStart_toStartOf="@+id/inputJudul"
         app:layout_constraintTop_toBottomOf="@+id/inputJudul" />
@@ -57,7 +58,7 @@
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rencana"
+        android:text="@string/rencana"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="@+id/textView12"
         app:layout_constraintStart_toEndOf="@+id/textView12" />
@@ -67,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Target"
+        android:text="@string/target"
         android:textColor="#000000"
         app:layout_constraintStart_toStartOf="@+id/inputRencana"
         app:layout_constraintTop_toBottomOf="@+id/inputRencana" />
@@ -80,13 +81,14 @@
         android:background="@drawable/background_grid"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="Tuliskan strategi dan rencana dalam bentuk list"
+        android:hint="@string/tuliskan_strategi_dan_rencana_dalam_bentuk_list"
         android:inputType="textMultiLine"
         android:padding="8dp"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/inputJudul"
         app:layout_constraintStart_toStartOf="@+id/textView12"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+        app:layout_constraintTop_toBottomOf="@+id/textView13"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/inputTarget"
@@ -95,12 +97,14 @@
         android:layout_marginTop="4dp"
         android:background="@drawable/background_grid"
         android:ems="10"
+        android:hint="@string/_20_des_2020"
         android:inputType="textPersonName"
         android:padding="8dp"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/inputRencana"
         app:layout_constraintStart_toStartOf="@+id/textView14"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+        app:layout_constraintTop_toBottomOf="@+id/textView14"
+        android:importantForAutofill="no" />
 
     <Button
         android:id="@+id/btn_savePlan"
@@ -109,7 +113,7 @@
         android:layout_marginTop="80dp"
         android:background="@drawable/button_main"
         android:enabled="true"
-        android:text="SIMPAN"
+        android:text="@string/simpan"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="@+id/inputTarget"
         app:layout_constraintStart_toStartOf="@+id/inputTarget"

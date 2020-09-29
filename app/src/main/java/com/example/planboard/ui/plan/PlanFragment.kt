@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.planboard.PlanboardActivity
 import com.example.planboard.R
+import com.example.planboard.ui.plan.PlanNewFragment.Companion.EXTRA_ID
 import com.example.planboard.util.ViewModelFactory
 import com.example.planboard.ui.plan.room.EntityPlan
 import kotlinx.android.synthetic.main.activity_planboard.*
@@ -39,6 +40,8 @@ class PlanFragment : Fragment() {
         counter = AtomicInteger()
         observeLiveData()
         fab.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putInt(EXTRA_ID, getCount()+1)
             findNavController().navigate(R.id.action_navigation_dashboard_to_planNewFragment)
         }
         showRecyclerview()
@@ -70,7 +73,6 @@ class PlanFragment : Fragment() {
         }
         t.start()
         t.join()
-
         return counter.get()
     }
 }

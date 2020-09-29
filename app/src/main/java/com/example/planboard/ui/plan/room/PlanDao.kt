@@ -19,7 +19,4 @@ interface PlanDao {
 
     @Update
     fun update(entityPlan: EntityPlan)
-
-    @Delete
-    fun delete(entityPlan: EntityPlan)
 }

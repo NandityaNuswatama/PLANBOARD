@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [EntityBalance::class], version = 1, exportSchema = false)
+@Database(entities = [Balance::class], version = 1, exportSchema = false)
 abstract class BalanceDatabase: RoomDatabase() {
         abstract fun balanceDao(): BalanceDao
 
@@ -21,7 +21,7 @@ abstract class BalanceDatabase: RoomDatabase() {
                             INSTANCE = Room.databaseBuilder(
                             context.applicationContext,
                             BalanceDatabase::class.java,
-                            "balance_table"
+                            "table_balance"
                         ).build()
                     }
                 }

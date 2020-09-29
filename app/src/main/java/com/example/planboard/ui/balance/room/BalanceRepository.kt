@@ -6,10 +6,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class BalanceRepository(private val balanceDao: BalanceDao) {
-    val allNominal: LiveData<List<EntityBalance>> = balanceDao.getNominal()
-    val currentBalance: LiveData<EntityBalance> = balanceDao.getBalance()
+    val allNominal: LiveData<List<Balance>> = balanceDao.getNominal()
 
-    fun insert(entityBalance: EntityBalance){
+    fun insert(entityBalance: Balance){
        CoroutineScope(Dispatchers.IO).launch{
            balanceDao.insert(entityBalance)
        }
@@ -23,5 +22,9 @@ class BalanceRepository(private val balanceDao: BalanceDao) {
 
     fun getCount(): Int{
         return balanceDao.getCount()
+    }
+
+    fun getBalance(id: Int): Long{
+        return balanceDao.getBalance(id)
     }
 }

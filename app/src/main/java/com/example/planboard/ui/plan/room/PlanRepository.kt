@@ -22,14 +22,6 @@ class PlanRepository(application: Application) {
         executorService.execute{ mPlanDao.insert(entityPlan) }
     }
 
-    fun delete(entityPlan: EntityPlan){
-        executorService.execute{ mPlanDao.delete(entityPlan)}
-    }
-
-    fun update(entityPlan: EntityPlan){
-        executorService.execute { mPlanDao.update(entityPlan) }
-    }
-
     fun deleteById(id: Int){
         executorService.execute { mPlanDao.deleteById(id) }
     }

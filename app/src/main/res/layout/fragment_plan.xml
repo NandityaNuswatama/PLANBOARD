@@ -27,7 +27,8 @@
         android:clickable="true"
         android:src="@drawable/icon_add"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:focusable="true" />
 
     <TextView
         android:id="@+id/tv_hint_plan"
@@ -35,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:fontFamily="@font/lato_bold"
-        android:text="Tulis Rencanamu Lalu Laksanakan!"
+        android:text="@string/tulis_rencanamu_lalu_laksanakan"
         android:textColor="@color/colorAccent2"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"

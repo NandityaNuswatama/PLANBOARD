@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.planboard.ui.news.NewsFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_news" >
+        android:label="Berita"
+        tools:layout="@layout/fragment_news">
         <action
             android:id="@+id/action_navigation_home_to_newsDetailFragment"
             app:destination="@id/newsDetailFragment" />
@@ -18,8 +18,8 @@
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.example.planboard.ui.plan.PlanFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_plan" >
+        android:label="Rencana"
+        tools:layout="@layout/fragment_plan">
         <action
             android:id="@+id/action_navigation_dashboard_to_planNewFragment"
             app:destination="@id/planNewFragment" />
@@ -31,13 +31,13 @@
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.planboard.ui.balance.BalanceFragment"
-        android:label="@string/title_notifications"
+        android:label="Keuangan"
         tools:layout="@layout/fragment_balance" />
 
     <fragment
         android:id="@+id/newsDetailFragment"
         android:name="com.example.planboard.ui.news.NewsDetailFragment"
-        android:label="fragment_news_detail"
+        android:label="Baca Berita"
         tools:layout="@layout/fragment_news_detail">
         <argument
             android:name="newsUrl"
@@ -48,24 +48,22 @@
     <fragment
         android:id="@+id/planNewFragment"
         android:name="com.example.planboard.ui.plan.PlanNewFragment"
-        android:label="fragment_plan_new"
-        tools:layout="@layout/fragment_plan_new" >
-        <action
-            android:id="@+id/action_planNewFragment_to_navigation_dashboard"
-            app:destination="@id/navigation_dashboard" />
+        android:label="Buat Rencana"
+        tools:layout="@layout/fragment_plan_new">
+        <argument
+            android:name="newId"
+            android:defaultValue="0"
+            app:argType="integer" />
     </fragment>
 
     <fragment
         android:id="@+id/planEditFragment"
         android:name="com.example.planboard.ui.plan.PlanEditFragment"
-        android:label="fragment_plan_edit"
-        tools:layout="@layout/fragment_plan_edit" >
+        android:label="Ubah Rencana"
+        tools:layout="@layout/fragment_plan_edit">
         <argument
             android:name="planEdit"
             app:argType="string"
-            app:nullable="true"/>
-        <action
-            android:id="@+id/action_planEditFragment_to_navigation_dashboard"
-            app:destination="@id/navigation_dashboard" />
+            app:nullable="true" />
     </fragment>
 </navigation>

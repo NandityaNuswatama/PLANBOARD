@@ -48,6 +48,7 @@ class NewsDetailFragment : Fragment() {
         if (activity is PlanboardActivity){
             val planboardActivity = activity as PlanboardActivity
             planboardActivity.nav_view.visibility = View.GONE
+            planboardActivity.title = "Baca Berita"
         }
     }
 

@@ -13,10 +13,15 @@ import com.example.planboard.util.ViewModelFactory
 import com.example.planboard.ui.plan.room.EntityPlan
 import kotlinx.android.synthetic.main.activity_planboard.*
 import kotlinx.android.synthetic.main.fragment_plan_new.*
+import timber.log.Timber
 
 class PlanNewFragment : Fragment() {
+    companion object{
+        const val EXTRA_ID = "id"
+    }
 
     lateinit var planViewModel: PlanViewModel
+    private var newId: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,7 +34,8 @@ class PlanNewFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         planViewModel = ViewModelProvider(requireActivity(), ViewModelFactory.getInstance(requireActivity().application)).get(PlanViewModel::class.java)
-
+        newId = requireArguments().getInt(EXTRA_ID)
+        Timber.tag("newId:").d(newId.toString())
         btn_savePlan.setOnClickListener {
             if (inputJudul.text.isEmpty() && inputRencana.text.isEmpty()){
                 Toast.makeText(activity, "Judul dan Rencana harus diisi", Toast.LENGTH_SHORT).show()
@@ -55,11 +61,12 @@ class PlanNewFragment : Fragment() {
     }
 
     private fun saveToDatabase(){
-        val plan = EntityPlan(
-            title = inputJudul.text.toString(),
-            plan = inputRencana.text.toString(),
-            date = inputTarget.text.toString()
-        )
+            val plan = EntityPlan(
+                id = newId,
+                title = inputJudul.text.toString(),
+                plan = inputRencana.text.toString(),
+                date = inputTarget.text.toString()
+            )
         planViewModel.insert(plan)
     }
 }

@@ -5,14 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.planboard.R
-import com.example.planboard.ui.balance.room.EntityBalance
+import com.example.planboard.ui.balance.room.Balance
 import kotlinx.android.synthetic.main.item_balance.view.*
 
-class BalanceAdapter(private var nominal_: List<EntityBalance>): RecyclerView.Adapter<BalanceAdapter.BalanceViewHolder>() {
+class BalanceAdapter(private var nominal_: List<Balance>): RecyclerView.Adapter<BalanceAdapter.BalanceViewHolder>() {
     inner class BalanceViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        fun bind(entityBalance: EntityBalance){
+        fun bind(entityBalance: Balance){
             with(itemView){
-                tv_balance_item.text = entityBalance.totalBalance
+                tv_balance_item.text = entityBalance.totalBalance.toString()
                 tv_tanda.text = entityBalance.sign
                 tv_nominal.text = entityBalance.nominal
                 tv_purpose.text = entityBalance.purpose
@@ -34,7 +34,7 @@ class BalanceAdapter(private var nominal_: List<EntityBalance>): RecyclerView.Ad
         return nominal_.size
     }
 
-    internal fun setBalance(entityBalance: ArrayList<EntityBalance>){
+    internal fun setBalance(entityBalance: ArrayList<Balance>){
         nominal_ = entityBalance
         notifyDataSetChanged()
     }

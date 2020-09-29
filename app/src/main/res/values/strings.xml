@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">PLANBOARD</string>
     <string name="title_activity_planboard">MainActivity</string>
     <string name="title_home">Home</string>
@@ -8,4 +8,31 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="dummy_text_long">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tortor dui, dapibus sit amet porta varius, tempor sit amet augue. Fusce nec lobortis sem. Etiam tristique augue elementum erat lacinia volutpat eget et nunc.</string>
+    <string name="gaji_bulan_maret">Gaji bulan Maret</string>
+    <string name="tgl_bln_thn" tools:ignore="Typos">tgl/bln/thn</string>
+    <string name="_0">0</string>
+    <string name="jumlah">Jumlah</string>
+    <string name="keperluan_asal">Keperluan/Asal</string>
+    <string name="tanggal">Tanggal</string>
+    <string name="yuk_catat_keuanganmu">Yuk Catat Keuanganmu!</string>
+    <string name="nominal">Nominal</string>
+    <string name="tulis_tanpa_tanda_titik">Tulis tanpa tanda titik</string>
+    <string name="pemasukan">Pemasukan</string>
+    <string name="pengeluaran">Pengeluaran</string>
+    <string name="rp">RP.</string>
+    <string name="hari_ini">hari ini</string>
+    <string name="menghapus_catatan_terakhir">Menghapus catatan terakhir</string>
+    <string name="tulis_rencanamu_lalu_laksanakan">Tulis Rencanamu Lalu Laksanakan!</string>
+    <string name="bintang">*</string>
+    <string name="ubah">UBAH</string>
+    <string name="hapus">HAPUS</string>
+    <string name="judul">Judul</string>
+    <string name="name">Name</string>
+    <string name="beli_franchise_x">Beli franchise X</string>
+    <string name="rencana">Rencana</string>
+    <string name="target">Target</string>
+    <string name="tuliskan_strategi_dan_rencana_dalam_bentuk_list">Tuliskan strategi dan rencana dalam bentuk list</string>
+    <string name="simpan">SIMPAN</string>
+    <string name="gambar_berita">Gambar berita</string>
+    <string name="_20_des_2020">20 Des 2020</string>
 </resources>

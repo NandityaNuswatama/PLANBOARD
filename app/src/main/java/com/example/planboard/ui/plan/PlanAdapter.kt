@@ -24,7 +24,7 @@ class PlanAdapter internal constructor(private val activity: Activity): Recycler
                 tv_tanggal_rencana.text = entityPlan.date
                 itemView.setOnClickListener {
                     val bundle = Bundle()
-                    bundle.putInt(PlanEditFragment.id_, adapterPosition)
+                    bundle.putInt(PlanEditFragment.id_, entityPlan.id)
                     bundle.putString(PlanEditFragment.title_, entityPlan.title)
                     bundle.putString(PlanEditFragment.plan_, entityPlan.plan)
                     bundle.putString(PlanEditFragment.date_, entityPlan.date)

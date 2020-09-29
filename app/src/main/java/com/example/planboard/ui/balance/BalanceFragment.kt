@@ -4,23 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.size
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.planboard.R
-import com.example.planboard.ui.balance.room.EntityBalance
+import com.example.planboard.ui.balance.room.Balance
 import com.example.planboard.util.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_balance.*
 import timber.log.Timber
 import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.atomic.AtomicLong
 
 class BalanceFragment : Fragment(), View.OnClickListener {
 
     private lateinit var balanceViewModel: BalanceViewModel
-    private lateinit var balance: List<EntityBalance>
+    private lateinit var balance: List<Balance>
     private lateinit var balanceAdapter: BalanceAdapter
     private lateinit var counter: AtomicInteger
+    private lateinit var money: AtomicLong
+    private lateinit var myCurrentBalance: String
     private val idIncome = 101
     private val idOutcome = 110
 
@@ -39,6 +43,10 @@ class BalanceFragment : Fragment(), View.OnClickListener {
         balance = ArrayList()
         balanceAdapter = BalanceAdapter(balance)
         counter = AtomicInteger()
+        money = AtomicLong()
+
+        myCurrentBalance = getCurrentBalance(getTableRow()).toString()
+        tv_balance.text = myCurrentBalance
 
         showRecyclerView()
         observeLiveData()
@@ -46,18 +54,33 @@ class BalanceFragment : Fragment(), View.OnClickListener {
         btn_pemasukan.setOnClickListener(this)
         btn_pengeluaran.setOnClickListener(this)
         btn_delete_balance.setOnClickListener(this)
+        btn_today.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
         when(v.id){
             R.id.btn_pemasukan -> {
                 saveToDatabase(idIncome)
+                clearInput()
+                getTableRow()
+                showRecyclerView()
+                tv_balance.text = myCurrentBalance
             }
             R.id.btn_pengeluaran -> {
                 saveToDatabase(idOutcome)
+                clearInput()
+                getTableRow()
+                showRecyclerView()
+                tv_balance.text = myCurrentBalance
             }
             R.id.btn_delete_balance -> {
                 deleteFromDatabase()
+                getTableRow()
+                showRecyclerView()
+                tv_balance.text = myCurrentBalance
+            }
+            R.id.btn_today -> {
+                inputTanggal.setText(balanceViewModel.getToday())
             }
         }
     }
@@ -80,7 +103,7 @@ class BalanceFragment : Fragment(), View.OnClickListener {
 
     private fun observeLiveData(){
         balanceViewModel.getAllBalance().observe(requireActivity(), {balance ->
-            balance?.let { balanceAdapter.setBalance(it as ArrayList<EntityBalance>)
+            balance?.let { balanceAdapter.setBalance(it as ArrayList<Balance>)
             }
         })
 
@@ -89,45 +112,56 @@ class BalanceFragment : Fragment(), View.OnClickListener {
     private fun saveToDatabase(id: Int){
         when(id){
             idIncome -> {
-                val mBalance = EntityBalance(
-                    totalBalance = calculateTotalBalance(id).toString(),
-                    nominal = inputNominal.text.toString(),
-                    sign = "+",
-                    purpose = inputKeperluan.text.toString(),
-                    date = inputTanggal.text.toString()
-                )
-                balanceViewModel.insert(mBalance)
-                Timber.tag("IdBalance: ").d(mBalance.idBalance.toString())
+                if (inputNominal.text.isNotEmpty() && inputKeperluan.text.isNotEmpty() && inputTanggal.text.isNotEmpty()) {
+                    val mBalance = Balance(
+                        idBalance = getTableRow() + 1,
+                        totalBalance = calculateTotalBalance(id),
+                        nominal = inputNominal.text.toString(),
+                        sign = "+",
+                        purpose = inputKeperluan.text.toString(),
+                        date = inputTanggal.text.toString()
+                    )
+                    balanceViewModel.insert(mBalance)
+                    Timber.tag("totalBalance: ").d(mBalance.totalBalance.toString())
+                }else{
+                    Toast.makeText(requireContext(), "Harap diisi semua", Toast.LENGTH_SHORT).show()
+                }
             }
             idOutcome -> {
-                val mBalance = EntityBalance(
-                    totalBalance = calculateTotalBalance(id).toString(),
-                    nominal = inputNominal.text.toString(),
-                    sign = "-",
-                    purpose = inputKeperluan.text.toString(),
-                    date = inputTanggal.text.toString()
-                )
-                balanceViewModel.insert(mBalance)
-                Timber.tag("IdBalance: ").d(mBalance.idBalance.toString())
+                if (inputNominal.text.isNotEmpty() && inputKeperluan.text.isNotEmpty() && inputTanggal.text.isNotEmpty()) {
+                    val mBalance = Balance(
+                        idBalance = getTableRow() + 1,
+                        totalBalance = calculateTotalBalance(id),
+                        nominal = inputNominal.text.toString(),
+                        sign = "-",
+                        purpose = inputKeperluan.text.toString(),
+                        date = inputTanggal.text.toString()
+                    )
+                    showRecyclerView()
+                    balanceViewModel.insert(mBalance)
+                    Timber.tag("totalBalance: ").d(mBalance.totalBalance.toString())
+                } else{
+                    Toast.makeText(requireContext(), "Harap diisi semua", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
 
-    private fun calculateTotalBalance(id: Int){
+    private fun calculateTotalBalance(id: Int): Long{
+        var myBalance = 0L
         when(id){
             idIncome -> {
                 val inputNominal = inputNominal.text.toString().trim()
-                val currentBalance_ = tv_balance.text.toString().trim()
-                val balance_ = currentBalance_.toLong() + inputNominal.toLong()
-                tv_balance.text = balance_.toString()
+                val currentBalance_ = myCurrentBalance
+                myBalance = currentBalance_.toLong() + inputNominal.toLong()
             }
             idOutcome -> {
                 val inputNominal = inputNominal.text.toString().trim()
-                val currentBalance_ = tv_balance.text.toString().trim()
-                val balance_ = currentBalance_.toLong() - inputNominal.toLong()
-                tv_balance.text = balance_.toString()
+                val currentBalance_ = myCurrentBalance
+                myBalance = currentBalance_.toLong() - inputNominal.toLong()
             }
         }
+        return myBalance
     }
 
     private fun deleteFromDatabase(){
@@ -142,7 +176,22 @@ class BalanceFragment : Fragment(), View.OnClickListener {
         }
         t.start()
         t.join()
-
         return counter.get()
+    }
+
+    private fun getCurrentBalance(id: Int): Long{
+        val t = Thread {
+            val count = balanceViewModel.currentBalance(id)
+            money.set(count)
+        }
+        t.start()
+        t.join()
+        return money.get()
+    }
+
+    private fun clearInput(){
+        inputNominal.setText("")
+        inputKeperluan.setText("")
+        inputTanggal.setText("")
     }
 }

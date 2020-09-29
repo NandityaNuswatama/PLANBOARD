@@ -54,6 +54,7 @@ class PlanEditFragment : Fragment(), View.OnClickListener {
         }
     }
 
+
     override fun onDestroyView() {
         super.onDestroyView()
         if (activity is PlanboardActivity){
@@ -65,9 +66,9 @@ class PlanEditFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View) {
         when(v.id){
             R.id.btn_updatePlan -> {
-                showDialog(dialogTitle = "Mau ganti rencana?",
-                    dialogMessage = "Rencana ini akan diganti oleh rencana yang barusan ditulis.",
-                    positiveButton = "Ganti",
+                showDialog(dialogTitle = "Mau ubah rencana?",
+                    dialogMessage = "Rencana ini akan diubah oleh rencana yang barusan ditulis.",
+                    positiveButton = "Ubah",
                     id = updateId
                 )
             }
@@ -91,20 +92,17 @@ class PlanEditFragment : Fragment(), View.OnClickListener {
 
     private fun updateDatabase() {
         val entityPlan = EntityPlan(
+            id = requireArguments().getInt(id_),
             title = inputEditJudul.text.toString(),
             plan = inputEditRencana.text.toString(),
             date = inputEditTarget.text.toString()
         )
-        planViewModel.update(entityPlan)
+        planViewModel.insert(entityPlan)
     }
 
     private fun deleteFromDatabase(){
-        val entityPlan = EntityPlan(
-            title = inputEditJudul.text.toString(),
-            plan = inputEditRencana.text.toString(),
-            date = inputEditTarget.text.toString()
-        )
-        planViewModel.delete(entityPlan)
+        val planId = requireArguments().getInt(id_)
+        planViewModel.deleteById(planId)
     }
 
     private fun showDialog(

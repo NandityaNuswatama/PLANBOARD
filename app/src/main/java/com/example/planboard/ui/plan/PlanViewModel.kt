@@ -24,11 +24,7 @@ class PlanViewModel(application: Application) : ViewModel() {
         return  repository.getCount()
     }
 
-    fun delete(entityPlan: EntityPlan){
-        repository.delete(entityPlan)
-    }
-
-    fun update(entityPlan: EntityPlan){
-        repository.update(entityPlan)
+    fun deleteById(id: Int){
+        repository.deleteById(id)
     }
 }
