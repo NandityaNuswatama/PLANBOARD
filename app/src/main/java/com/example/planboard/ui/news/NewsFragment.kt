@@ -61,8 +61,8 @@ class NewsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         queryNews()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         compositeDisposable.clear()
     }
 
@@ -79,9 +79,9 @@ class NewsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         swipe_refresh.isRefreshing = false
 
         newsAdapter.setOnItemClickCallback(object : NewsAdapter.OnItemClickCallback{
-            override fun onItemClicked(article: Article) {
+            override fun onItemClicked(data: Article) {
                 val bundle = Bundle()
-                bundle.putString(NewsDetailFragment.newsUrl, article.url)
+                bundle.putString(NewsDetailFragment.newsUrl, data.url)
                 findNavController().navigate(R.id.action_navigation_home_to_newsDetailFragment, bundle)
             }
         })

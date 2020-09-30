@@ -4,50 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/swipe_balance"
     tools:context=".ui.balance.BalanceFragment">
-
-    <EditText
-        android:id="@+id/inputKeperluan"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/background_grid"
-        android:ems="10"
-        android:fontFamily="@font/lato"
-        android:hint="@string/gaji_bulan_maret"
-        android:inputType="textPersonName"
-        android:padding="12dp"
-        android:textColor="#000000"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/inputTanggal"
-        app:layout_constraintStart_toStartOf="@+id/textView24"
-        app:layout_constraintTop_toBottomOf="@+id/textView24"
-        android:importantForAutofill="no" />
-
-    <EditText
-        android:id="@+id/inputTanggal"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="1dp"
-        android:background="@drawable/background_grid"
-        android:ems="10"
-        android:fontFamily="@font/lato"
-        android:hint="@string/tgl_bln_thn"
-        android:inputType="textPersonName"
-        android:padding="12dp"
-        android:textAlignment="textEnd"
-        android:textColor="#000000"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/inputNominal"
-        app:layout_constraintEnd_toEndOf="@+id/textView23"
-        android:importantForAutofill="no" />
 
     <TextView
         android:id="@+id/tv_balance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/lato_bold"
         android:text="@string/_0"
         android:textColor="#000000"
@@ -56,6 +21,20 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lato_bold"
+        android:text="@string/rp"
+        android:textColor="#000000"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_balance"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_balance" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
@@ -69,9 +48,9 @@
 
         <ImageView
             android:id="@+id/btn_delete_balance"
-            android:contentDescription="@string/menghapus_catatan_terakhir"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/menghapus_catatan_terakhir"
             android:padding="8dp"
             android:src="@drawable/icon_delete"
             app:layout_constraintStart_toStartOf="parent"
@@ -161,113 +140,154 @@
             app:layout_constraintTop_toTopOf="@+id/rv_balance" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/textView22"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/lato"
-        android:text="@string/nominal"
-        android:textColor="#000000"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
-
-    <EditText
-        android:id="@+id/inputNominal"
-        android:layout_width="170dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/background_grid"
-        android:ems="10"
-        android:fontFamily="@font/lato"
-        android:hint="@string/tulis_tanpa_tanda_titik"
-        android:inputType="number"
-        android:padding="12dp"
-        android:textColor="#000000"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/textView22"
-        app:layout_constraintTop_toBottomOf="@+id/textView22"
-        android:importantForAutofill="no" />
-
-    <TextView
-        android:id="@+id/textView23"
-        android:layout_width="47dp"
-        android:layout_height="17dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/lato"
-        android:text="@string/tanggal"
-        android:textColor="#000000"
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView22" />
-
-    <TextView
-        android:id="@+id/textView24"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/lato"
-        android:text="@string/keperluan_asal"
-        android:textColor="#000000"
-        app:layout_constraintStart_toStartOf="@+id/textView22"
-        app:layout_constraintTop_toBottomOf="@+id/inputNominal" />
-
-    <Button
-        android:id="@+id/btn_pemasukan"
-        android:layout_width="150dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/button_main"
-        android:fontFamily="@font/lato"
-        android:text="@string/pemasukan"
-        android:textColor="#FFFFFF"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/btn_pengeluaran"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputKeperluan" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
 
-    <Button
-        android:id="@+id/btn_pengeluaran"
-        android:layout_width="150dp"
-        android:layout_height="36dp"
-        android:background="@drawable/button_2"
-        android:fontFamily="@font/lato"
-        android:text="@string/pengeluaran"
-        android:textColor="@color/colorAccent"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn_pemasukan"
-        app:layout_constraintTop_toTopOf="@+id/btn_pemasukan" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/lato_bold"
-        android:text="@string/rp"
-        android:textColor="#000000"
-        android:textSize="22sp"
-        app:layout_constraintEnd_toStartOf="@+id/tv_balance"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/lato"
+                android:text="@string/nominal"
+                android:textColor="#000000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btn_today"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="2dp"
-        android:background="@drawable/button_2"
-        android:text="@string/hari_ini"
-        android:textColor="@color/colorAccent"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="@+id/inputTanggal"
-        app:layout_constraintEnd_toStartOf="@+id/inputTanggal"
-        app:layout_constraintTop_toTopOf="@+id/inputTanggal"
-        tools:ignore="SmallSp" />
+            <EditText
+                android:id="@+id/inputNominal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="55dp"
+                android:background="@drawable/background_grid"
+                android:ems="10"
+                android:fontFamily="@font/lato"
+                android:hint="@string/tulis_tanpa_tanda_titik"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:padding="12dp"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@+id/btn_today"
+                app:layout_constraintStart_toStartOf="@+id/textView22"
+                app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+            <EditText
+                android:id="@+id/inputTanggal"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="1dp"
+                android:background="@drawable/background_grid"
+                android:ems="10"
+                android:fontFamily="@font/lato"
+                android:hint="@string/tgl_bln_thn"
+                android:importantForAutofill="no"
+                android:inputType="datetime"
+                android:padding="12dp"
+                android:textAlignment="textEnd"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/inputNominal"
+                app:layout_constraintEnd_toEndOf="@+id/textView23" />
+
+            <EditText
+                android:id="@+id/inputKeperluan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/background_grid"
+                android:ems="10"
+                android:fontFamily="@font/lato"
+                android:hint="@string/gaji_bulan_maret"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName|textCapSentences"
+                android:padding="12dp"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@+id/inputTanggal"
+                app:layout_constraintStart_toStartOf="@+id/textView24"
+                app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="55dp"
+                android:layout_height="17dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/lato"
+                android:text="@string/tanggal"
+                android:textAlignment="textEnd"
+                android:textColor="#000000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView22" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/lato"
+                android:text="@string/keperluan_asal"
+                android:textColor="#000000"
+                app:layout_constraintStart_toStartOf="@+id/textView22"
+                app:layout_constraintTop_toBottomOf="@+id/inputNominal" />
+
+            <Button
+                android:id="@+id/btn_pemasukan"
+                android:layout_width="150dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/button_main"
+                android:fontFamily="@font/lato"
+                android:text="@string/pemasukan"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_pengeluaran"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputKeperluan" />
+
+            <Button
+                android:id="@+id/btn_pengeluaran"
+                android:layout_width="150dp"
+                android:layout_height="36dp"
+                android:background="@drawable/button_2"
+                android:fontFamily="@font/lato"
+                android:text="@string/pengeluaran"
+                android:textColor="@color/colorAccent"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/btn_pemasukan"
+                app:layout_constraintTop_toTopOf="@+id/btn_pemasukan" />
+
+            <Button
+                android:id="@+id/btn_today"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="1dp"
+                android:background="@drawable/button_2"
+                android:text="@string/hari_ini"
+                android:textColor="@color/colorAccent"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@+id/inputTanggal"
+                app:layout_constraintEnd_toStartOf="@+id/inputTanggal"
+                app:layout_constraintTop_toTopOf="@+id/inputTanggal"
+                tools:ignore="SmallSp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

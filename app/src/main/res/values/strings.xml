@@ -30,9 +30,10 @@
     <string name="name">Name</string>
     <string name="beli_franchise_x">Beli franchise X</string>
     <string name="rencana">Rencana</string>
-    <string name="target">Target</string>
+    <string name="target">Target:</string>
     <string name="tuliskan_strategi_dan_rencana_dalam_bentuk_list">Tuliskan strategi dan rencana dalam bentuk list</string>
     <string name="simpan">SIMPAN</string>
     <string name="gambar_berita">Gambar berita</string>
     <string name="_20_des_2020">20 Des 2020</string>
+    <string name="np_target">Tidak ada</string>
 </resources>

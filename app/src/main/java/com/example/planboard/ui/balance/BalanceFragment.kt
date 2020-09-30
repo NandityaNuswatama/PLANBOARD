@@ -61,23 +61,26 @@ class BalanceFragment : Fragment(), View.OnClickListener {
         when(v.id){
             R.id.btn_pemasukan -> {
                 saveToDatabase(idIncome)
-                clearInput()
                 getTableRow()
+                observeLiveData()
                 showRecyclerView()
-                tv_balance.text = myCurrentBalance
+                clearInput()
+                tv_balance.text = getCurrentBalance(getTableRow()).toString()
             }
             R.id.btn_pengeluaran -> {
                 saveToDatabase(idOutcome)
-                clearInput()
                 getTableRow()
+                observeLiveData()
                 showRecyclerView()
-                tv_balance.text = myCurrentBalance
+                clearInput()
+                tv_balance.text = getCurrentBalance(getTableRow()).toString()
             }
             R.id.btn_delete_balance -> {
                 deleteFromDatabase()
                 getTableRow()
+                observeLiveData()
                 showRecyclerView()
-                tv_balance.text = myCurrentBalance
+                tv_balance.text = getCurrentBalance(getTableRow()).toString()
             }
             R.id.btn_today -> {
                 inputTanggal.setText(balanceViewModel.getToday())
@@ -99,7 +102,6 @@ class BalanceFragment : Fragment(), View.OnClickListener {
             tv_balance_hint.visibility = View .VISIBLE
         }
     }
-
 
     private fun observeLiveData(){
         balanceViewModel.getAllBalance().observe(requireActivity(), {balance ->
