@@ -40,7 +40,6 @@ class PlanNewFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         planViewModel = ViewModelProvider(requireActivity(), ViewModelFactory.getInstance(requireActivity().application)).get(PlanViewModel::class.java)
         newId = requireArguments().getInt(EXTRA_ID)
-        urgency = resources.obtainTypedArray(R.array.urgency)
 
         Timber.tag("newId:").d(newId.toString())
         btn_savePlan.setOnClickListener {

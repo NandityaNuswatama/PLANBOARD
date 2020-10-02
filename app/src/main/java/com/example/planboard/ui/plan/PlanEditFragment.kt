@@ -53,6 +53,8 @@ class PlanEditFragment : Fragment(), View.OnClickListener {
 
         btn_updatePlan.setOnClickListener(this)
         btn_deletePlan.setOnClickListener(this)
+        btn_editDate.setOnClickListener(this)
+
         if (activity is PlanboardActivity){
             val planboardActivity = activity as PlanboardActivity
             planboardActivity.nav_view.visibility = View.GONE

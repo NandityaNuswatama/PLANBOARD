@@ -105,15 +105,16 @@
         app:layout_constraintStart_toStartOf="@+id/textView14"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_savePlan"
         android:layout_width="150dp"
-        android:layout_height="36dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@drawable/button_main"
         android:enabled="true"
         android:text="@string/simpan"
         android:textColor="#FFFFFF"
+        app:cornerRadius="24dp"
+        app:tint="@color/colorAccent2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

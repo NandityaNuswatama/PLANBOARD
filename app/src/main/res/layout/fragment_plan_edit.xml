@@ -104,30 +104,32 @@
         app:layout_constraintTop_toBottomOf="@+id/textView14"
         tools:ignore="Autofill" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_updatePlan"
         android:layout_width="150dp"
-        android:layout_height="36dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/button_main"
         android:enabled="true"
         android:text="@string/ubah"
         android:textColor="#FFFFFF"
+        app:cornerRadius="16dp"
+        app:tint="@color/colorAccent2"
         app:layout_constraintEnd_toStartOf="@+id/btn_deletePlan"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_deletePlan"
         android:layout_width="150dp"
-        android:layout_height="36dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/button_2"
+        android:backgroundTint="@color/colorWhite"
         android:enabled="true"
         android:text="@string/hapus"
         android:textColor="@color/colorAccent"
+        app:cornerRadius="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btn_updatePlan"
