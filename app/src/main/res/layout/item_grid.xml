@@ -9,19 +9,6 @@
     android:background="@drawable/background_plan">
 
     <TextView
-        android:id="@+id/tv_judul_rencana"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/lato_bold"
-        android:textColor="#000000"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/img_urgency"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Judul" />
-
-    <TextView
         android:id="@+id/tv_rencana"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -65,10 +52,25 @@
 
     <ImageView
         android:id="@+id/img_urgency"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
+        android:layout_width="0dp"
+        android:layout_height="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icon_normal" />
+
+    <TextView
+        android:id="@+id/tv_judul_rencana"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/lato_bold"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_urgency"
+        tools:text="Judul" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

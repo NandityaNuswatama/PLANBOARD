@@ -76,8 +76,6 @@ class PlanNewFragment : Fragment() {
             R.id.rb_sangat_penting -> index = 2
         }
         urgent = resources.obtainTypedArray(R.array.urgency)
-        if (inputTarget.text.isEmpty()) {
-            inputTarget.setText(R.string.np_target)
             val plan = Plan(
                 id = newId,
                 title = inputJudul.text.toString(),
@@ -85,8 +83,7 @@ class PlanNewFragment : Fragment() {
                 date = inputTarget.text.toString(),
                 urgent = urgent.getResourceId(index, 0)
             )
-            planViewModel.insert(plan)
-        }
+        planViewModel.insert(plan)
     }
 
     @SuppressLint("SetTextI18n")

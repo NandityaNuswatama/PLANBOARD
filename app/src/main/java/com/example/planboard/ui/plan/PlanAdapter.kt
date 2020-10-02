@@ -26,7 +26,6 @@ class PlanAdapter internal constructor(private val activity: Activity): Recycler
                 tv_tanggal_rencana.text = entityPlan.date
                 Glide.with(context)
                     .load(entityPlan.urgent)
-                    .override(60, 30)
                     .into(img_urgency)
                 itemView.setOnClickListener {
                     val bundle = Bundle()
