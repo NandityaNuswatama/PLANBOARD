@@ -1,5 +1,6 @@
 package com.example.planboard.ui.balance
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,15 +13,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.planboard.R
 import com.example.planboard.ui.balance.room.Balance
 import com.example.planboard.util.ViewModelFactory
+import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.android.synthetic.main.fragment_balance.*
+import kotlinx.android.synthetic.main.fragment_plan_new.*
 import timber.log.Timber
+import java.util.*
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicLong
+import kotlin.collections.ArrayList
 
 class BalanceFragment : Fragment(), View.OnClickListener {
 
     private lateinit var balanceViewModel: BalanceViewModel
-    private lateinit var balance: List<Balance>
     private lateinit var balanceAdapter: BalanceAdapter
     private lateinit var counter: AtomicInteger
     private lateinit var money: AtomicLong
@@ -40,8 +44,7 @@ class BalanceFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         balanceViewModel = ViewModelProvider(this, ViewModelFactory.getInstance(requireActivity().application)).get(BalanceViewModel::class.java)
-        balance = ArrayList()
-        balanceAdapter = BalanceAdapter(balance)
+        balanceAdapter = BalanceAdapter(requireActivity())
         counter = AtomicInteger()
         money = AtomicLong()
 
@@ -49,12 +52,11 @@ class BalanceFragment : Fragment(), View.OnClickListener {
         tv_balance.text = myCurrentBalance
 
         showRecyclerView()
-        observeLiveData()
 
         btn_pemasukan.setOnClickListener(this)
         btn_pengeluaran.setOnClickListener(this)
         btn_delete_balance.setOnClickListener(this)
-        btn_today.setOnClickListener(this)
+        btn_dateBalance.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
@@ -62,7 +64,6 @@ class BalanceFragment : Fragment(), View.OnClickListener {
             R.id.btn_pemasukan -> {
                 saveToDatabase(idIncome)
                 getTableRow()
-                observeLiveData()
                 showRecyclerView()
                 clearInput()
                 tv_balance.text = getCurrentBalance(getTableRow()).toString()
@@ -70,7 +71,6 @@ class BalanceFragment : Fragment(), View.OnClickListener {
             R.id.btn_pengeluaran -> {
                 saveToDatabase(idOutcome)
                 getTableRow()
-                observeLiveData()
                 showRecyclerView()
                 clearInput()
                 tv_balance.text = getCurrentBalance(getTableRow()).toString()
@@ -78,21 +78,21 @@ class BalanceFragment : Fragment(), View.OnClickListener {
             R.id.btn_delete_balance -> {
                 deleteFromDatabase()
                 getTableRow()
-                observeLiveData()
                 showRecyclerView()
                 tv_balance.text = getCurrentBalance(getTableRow()).toString()
             }
-            R.id.btn_today -> {
-                inputTanggal.setText(balanceViewModel.getToday())
+            R.id.btn_dateBalance -> {
+                showDatePicker()
             }
         }
     }
 
     private fun showRecyclerView(){
+        observeLiveData()
         if (getTableRow() > 0) {
             img_money_tree.visibility = View.GONE
             tv_balance_hint.visibility = View.GONE
-            balanceAdapter = BalanceAdapter(balance)
+            balanceAdapter = BalanceAdapter(requireActivity())
             rv_balance.adapter = balanceAdapter
             rv_balance.layoutManager = LinearLayoutManager(requireContext())
             rv_balance.setHasFixedSize(true)
@@ -195,5 +195,18 @@ class BalanceFragment : Fragment(), View.OnClickListener {
         inputNominal.setText("")
         inputKeperluan.setText("")
         inputTanggal.setText("")
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun showDatePicker(){
+        val builder = MaterialDatePicker.Builder.datePicker()
+        val picker = builder.build()
+        picker.addOnPositiveButtonClickListener {
+            val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+            calendar.time = Date(it)
+            inputTanggal.setText("${calendar.get(Calendar.DAY_OF_MONTH)}-" +
+                    "${calendar.get(Calendar.MONTH) + 1}-${calendar.get(Calendar.YEAR)}")
+        }
+        picker.show(parentFragmentManager, picker.toString())
     }
 }

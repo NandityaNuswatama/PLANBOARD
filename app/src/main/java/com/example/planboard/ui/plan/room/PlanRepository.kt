@@ -14,12 +14,12 @@ class PlanRepository(application: Application) {
         mPlanDao = db.planDao()
     }
 
-    fun getAllPlans(): LiveData<List<EntityPlan>> = mPlanDao.getPlans()
+    fun getAllPlans(): LiveData<List<Plan>> = mPlanDao.getPlans()
 
     fun getCount(): Int = mPlanDao.getCount()
 
-    fun insert(entityPlan: EntityPlan){
-        executorService.execute{ mPlanDao.insert(entityPlan) }
+    fun insert(plan: Plan){
+        executorService.execute{ mPlanDao.insert(plan) }
     }
 
     fun deleteById(id: Int){

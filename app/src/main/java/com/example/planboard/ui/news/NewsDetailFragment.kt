@@ -10,6 +10,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.example.planboard.PlanboardActivity
 import com.example.planboard.R
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_planboard.*
 import kotlinx.android.synthetic.main.fragment_news_detail.*
 import timber.log.Timber
@@ -18,6 +19,8 @@ class NewsDetailFragment : Fragment() {
     companion object{
         var newsUrl = "url"
     }
+
+    private lateinit var compositeDisposable: CompositeDisposable
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +44,8 @@ class NewsDetailFragment : Fragment() {
             webView.loadUrl(url)
             Timber.tag("NEWS DETAIL").d(url)
         }
+
+        compositeDisposable = CompositeDisposable()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -52,11 +57,12 @@ class NewsDetailFragment : Fragment() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         if (activity is PlanboardActivity){
             val planboardActivity = activity as PlanboardActivity
             planboardActivity.nav_view.visibility = View.VISIBLE
         }
+        compositeDisposable.clear()
     }
 }

@@ -4,19 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.planboard.PlanboardActivity
 import com.example.planboard.R
 import com.example.planboard.ui.plan.PlanNewFragment.Companion.EXTRA_ID
 import com.example.planboard.util.ViewModelFactory
-import com.example.planboard.ui.plan.room.EntityPlan
-import kotlinx.android.synthetic.main.activity_planboard.*
+import com.example.planboard.ui.plan.room.Plan
 import kotlinx.android.synthetic.main.fragment_plan.*
-import timber.log.Timber
 import java.util.concurrent.atomic.AtomicInteger
 
 class PlanFragment : Fragment() {
@@ -62,7 +58,7 @@ class PlanFragment : Fragment() {
 
     private fun observeLiveData(){
         planViewModel.getAllPlans().observe(requireActivity(), { plans ->
-            plans?.let { planAdapter.setPlans(it as ArrayList<EntityPlan>) }
+            plans?.let { planAdapter.setPlans(it as ArrayList<Plan>) }
         })
     }
 

@@ -1,5 +1,7 @@
 package com.example.planboard.ui.plan
 
+import android.annotation.SuppressLint
+import android.content.res.TypedArray
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,11 +12,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.planboard.PlanboardActivity
 import com.example.planboard.R
 import com.example.planboard.util.ViewModelFactory
-import com.example.planboard.ui.plan.room.EntityPlan
+import com.example.planboard.ui.plan.room.Plan
+import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.android.synthetic.main.activity_planboard.*
 import kotlinx.android.synthetic.main.fragment_plan_edit.*
-import timber.log.Timber
-
+import kotlinx.android.synthetic.main.fragment_plan_new.*
+import java.util.*
 
 class PlanEditFragment : Fragment(), View.OnClickListener {
     companion object{
@@ -22,9 +25,11 @@ class PlanEditFragment : Fragment(), View.OnClickListener {
         var title_ = "title"
         var plan_ = "plan"
         var date_ = "date"
+        var urgency_ = "1"
     }
 
-    lateinit var entityPlan: List<EntityPlan>
+    lateinit var entityPlan: List<Plan>
+    private lateinit var urgent: TypedArray
 
     private val updateId = 14
     private val deleteId = 17
@@ -79,6 +84,9 @@ class PlanEditFragment : Fragment(), View.OnClickListener {
                 id = deleteId
                 )
             }
+            R.id.btn_editDate -> {
+                showDatePicker()
+            }
         }
     }
 
@@ -91,11 +99,20 @@ class PlanEditFragment : Fragment(), View.OnClickListener {
     }
 
     private fun updateDatabase() {
-        val entityPlan = EntityPlan(
+        var index = 0
+        val checked = radioGroup2.checkedRadioButtonId
+        when(checked){
+            R.id.rb_editBiasa -> index = 0
+            R.id.rb_editPenting -> index = 1
+            R.id.rb_editSangat -> index = 2
+        }
+        urgent = resources.obtainTypedArray(R.array.urgency)
+        val entityPlan = Plan(
             id = requireArguments().getInt(id_),
             title = inputEditJudul.text.toString(),
             plan = inputEditRencana.text.toString(),
-            date = inputEditTarget.text.toString()
+            date = inputEditTarget.text.toString(),
+            urgent = urgent.getResourceId(index, 0)
         )
         planViewModel.insert(entityPlan)
     }
@@ -128,5 +145,19 @@ class PlanEditFragment : Fragment(), View.OnClickListener {
             }
         }
         builder.show()
+    }
+
+
+    @SuppressLint("SetTextI18n")
+    private fun showDatePicker(){
+        val builder = MaterialDatePicker.Builder.datePicker()
+        val picker = builder.build()
+        picker.addOnPositiveButtonClickListener {
+            val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+            calendar.time = Date(it)
+            inputEditTarget.setText("${calendar.get(Calendar.DAY_OF_MONTH)}-" +
+                    "${calendar.get(Calendar.MONTH) + 1}-${calendar.get(Calendar.YEAR)}")
+        }
+        picker.show(parentFragmentManager, picker.toString())
     }
 }

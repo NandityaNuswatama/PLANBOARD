@@ -1,9 +1,9 @@
 package com.example.planboard.util
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.planboard.ui.plan.room.EntityPlan
+import com.example.planboard.ui.plan.room.Plan
 
-class PlanDiffCallback(private val mOldPlanLis: List<EntityPlan>, private val mNewPlanList: List<EntityPlan>) : DiffUtil.Callback() {
+class PlanDiffCallback(private val mOldPlanLis: List<Plan>, private val mNewPlanList: List<Plan>) : DiffUtil.Callback() {
     override fun getOldListSize(): Int {
         return mOldPlanLis.size
     }

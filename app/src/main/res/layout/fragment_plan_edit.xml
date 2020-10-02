@@ -47,7 +47,7 @@
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:text="@string/bintang"
         android:textColor="#FF0000"
         app:layout_constraintStart_toStartOf="@+id/inputEditJudul"
@@ -83,7 +83,7 @@
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:text="@string/target"
         android:textColor="#000000"
         app:layout_constraintStart_toStartOf="@+id/inputEditRencana"
@@ -100,7 +100,6 @@
         android:inputType="textPersonName"
         android:padding="8dp"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/inputEditRencana"
         app:layout_constraintStart_toStartOf="@+id/textView14"
         app:layout_constraintTop_toBottomOf="@+id/textView14"
         tools:ignore="Autofill" />
@@ -110,7 +109,7 @@
         android:layout_width="150dp"
         android:layout_height="36dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/button_main"
         android:enabled="true"
         android:text="@string/ubah"
@@ -118,7 +117,7 @@
         app:layout_constraintEnd_toStartOf="@+id/btn_deletePlan"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputEditTarget" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
 
     <Button
         android:id="@+id/btn_deletePlan"
@@ -133,5 +132,87 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btn_updatePlan"
         app:layout_constraintTop_toTopOf="@+id/btn_updatePlan" />
+
+    <ImageView
+        android:id="@+id/btn_editDate"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/icon_date"
+        app:layout_constraintBottom_toBottomOf="@+id/inputEditTarget"
+        app:layout_constraintStart_toEndOf="@+id/inputEditTarget"
+        app:layout_constraintTop_toTopOf="@+id/inputEditTarget"
+        tools:ignore="ContentDescription" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:gravity="fill_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5">
+
+        <me.omidh.liquidradiobutton.LiquidRadioButton
+            android:id="@+id/rb_editSangat"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="12dp"
+            android:gravity="center"
+            android:text="@string/sangat_penting"
+            app:lrb_checkedColor="#FF2D2D"
+            app:lrb_explodeCount="4"
+            app:lrb_inAnimDuration="500"
+            app:lrb_innerCircleRadius="8dp"
+            app:lrb_outAnimDuration="500"
+            app:lrb_strokeRadius="12dp"
+            app:lrb_strokeWidth="1dp"
+            app:lrb_unCheckedColor="@color/colorAccent2" />
+
+        <me.omidh.liquidradiobutton.LiquidRadioButton
+            android:id="@+id/rb_editPenting"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="12dp"
+            android:gravity="center"
+            android:text="@string/penting"
+            app:lrb_checkedColor="#FFE70D"
+            app:lrb_explodeCount="4"
+            app:lrb_inAnimDuration="500"
+            app:lrb_innerCircleRadius="8dp"
+            app:lrb_outAnimDuration="500"
+            app:lrb_strokeRadius="12dp"
+            app:lrb_strokeWidth="1dp"
+            app:lrb_unCheckedColor="@color/colorAccent2" />
+
+        <me.omidh.liquidradiobutton.LiquidRadioButton
+            android:id="@+id/rb_editBiasa"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/biasa"
+            app:lrb_checkedColor="#2DFF4E"
+            app:lrb_explodeCount="4"
+            app:lrb_inAnimDuration="500"
+            app:lrb_innerCircleRadius="8dp"
+            app:lrb_outAnimDuration="500"
+            app:lrb_strokeRadius="12dp"
+            app:lrb_strokeWidth="1dp"
+            app:lrb_unCheckedColor="@color/colorAccent2" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/tingkat_urgensi"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="@+id/inputEditTarget"
+        app:layout_constraintTop_toBottomOf="@+id/inputEditTarget" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

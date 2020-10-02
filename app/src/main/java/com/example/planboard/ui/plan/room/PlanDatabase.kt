@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [EntityPlan::class], version = 1, exportSchema = false)
+@Database(entities = [Plan::class], version = 1, exportSchema = false)
 abstract class PlanDatabase : RoomDatabase() {
 
     abstract fun planDao(): PlanDao
@@ -22,7 +22,7 @@ abstract class PlanDatabase : RoomDatabase() {
                         INSTANCE = Room.databaseBuilder(
                            context.applicationContext,
                             PlanDatabase::class.java,
-                        "plan_table"
+                        "table_plan"
                         )
                         .build()
                     }

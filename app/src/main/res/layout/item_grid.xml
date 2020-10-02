@@ -6,7 +6,7 @@
     android:layout_height="180dp"
     android:layout_gravity="center_horizontal|center_vertical"
     android:layout_margin="8dp"
-    android:background="@drawable/background_grid">
+    android:background="@drawable/background_plan">
 
     <TextView
         android:id="@+id/tv_judul_rencana"
@@ -16,7 +16,7 @@
         android:fontFamily="@font/lato_bold"
         android:textColor="#000000"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/img_urgency"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Judul" />
@@ -62,4 +62,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="31 Desember 2020" />
+
+    <ImageView
+        android:id="@+id/img_urgency"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon_normal" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

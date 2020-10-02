@@ -8,26 +8,33 @@ import android.view.ViewGroup
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.planboard.R
-import com.example.planboard.ui.plan.room.EntityPlan
+import com.example.planboard.ui.plan.PlanEditFragment.Companion.urgency_
+import com.example.planboard.ui.plan.room.Plan
 import com.example.planboard.util.PlanDiffCallback
 import kotlinx.android.synthetic.main.item_grid.view.*
 
 class PlanAdapter internal constructor(private val activity: Activity): RecyclerView.Adapter<PlanAdapter.PlanViewHolder>() {
-    private val listPlans = ArrayList<EntityPlan>()
+    private val listPlans = ArrayList<Plan>()
 
     inner class PlanViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        fun bind(entityPlan: EntityPlan){
+        fun bind(entityPlan: Plan){
             with(itemView){
                 tv_judul_rencana.text = entityPlan.title
                 tv_rencana.text = entityPlan.plan
                 tv_tanggal_rencana.text = entityPlan.date
+                Glide.with(context)
+                    .load(entityPlan.urgent)
+                    .override(60, 30)
+                    .into(img_urgency)
                 itemView.setOnClickListener {
                     val bundle = Bundle()
                     bundle.putInt(PlanEditFragment.id_, entityPlan.id)
                     bundle.putString(PlanEditFragment.title_, entityPlan.title)
                     bundle.putString(PlanEditFragment.plan_, entityPlan.plan)
                     bundle.putString(PlanEditFragment.date_, entityPlan.date)
+                    bundle.putInt(urgency_, entityPlan.urgent)
                     findNavController(itemView).navigate(
                         R.id.action_navigation_dashboard_to_planEditFragment,
                         bundle
@@ -46,7 +53,7 @@ class PlanAdapter internal constructor(private val activity: Activity): Recycler
         return holder.bind(listPlans[position])
     }
 
-    internal fun setPlans(listPlans: List<EntityPlan>){
+    internal fun setPlans(listPlans: List<Plan>){
         val diffCallback = PlanDiffCallback(this.listPlans, listPlans)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         this.listPlans.clear()

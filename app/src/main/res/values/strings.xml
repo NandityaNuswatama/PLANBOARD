@@ -34,6 +34,16 @@
     <string name="tuliskan_strategi_dan_rencana_dalam_bentuk_list">Tuliskan strategi dan rencana dalam bentuk list</string>
     <string name="simpan">SIMPAN</string>
     <string name="gambar_berita">Gambar berita</string>
-    <string name="_20_des_2020">20 Des 2020</string>
+    <string name="_20_des_2020" tools:ignore="TypographyDashes">20-10-2020</string>
     <string name="np_target">Tidak ada</string>
+    <string name="tingkat_urgensi">Tingkat Urgensi</string>
+    <string name="sangat_penting">Sangat Penting</string>
+    <string name="penting">Penting</string>
+    <string name="biasa">Biasa</string>
+
+    <string-array name="urgency">
+        <item>@drawable/icon_normal</item>
+        <item>@drawable/icon_urgent</item>
+        <item>@drawable/icon_very</item>
+    </string-array>
 </resources>

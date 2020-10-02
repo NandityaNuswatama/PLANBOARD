@@ -1,5 +1,6 @@
 package com.example.planboard.ui.balance
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,9 @@ import com.example.planboard.R
 import com.example.planboard.ui.balance.room.Balance
 import kotlinx.android.synthetic.main.item_balance.view.*
 
-class BalanceAdapter(private var nominal_: List<Balance>): RecyclerView.Adapter<BalanceAdapter.BalanceViewHolder>() {
+class BalanceAdapter internal constructor(activity: Activity): RecyclerView.Adapter<BalanceAdapter.BalanceViewHolder>() {
+    private val nominal_= ArrayList<Balance>()
+
     inner class BalanceViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(entityBalance: Balance){
             with(itemView){
@@ -34,8 +37,9 @@ class BalanceAdapter(private var nominal_: List<Balance>): RecyclerView.Adapter<
         return nominal_.size
     }
 
-    internal fun setBalance(entityBalance: ArrayList<Balance>){
-        nominal_ = entityBalance
+    internal fun setBalance(balance: List<Balance>){
+        this.nominal_.clear()
+        this.nominal_.addAll(balance)
         notifyDataSetChanged()
     }
 }
