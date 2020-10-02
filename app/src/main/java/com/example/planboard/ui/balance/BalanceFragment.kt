@@ -200,6 +200,7 @@ class BalanceFragment : Fragment(), View.OnClickListener {
     @SuppressLint("SetTextI18n")
     private fun showDatePicker(){
         val builder = MaterialDatePicker.Builder.datePicker()
+        builder.setTitleText("Pilih tanggal")
         val picker = builder.build()
         picker.addOnPositiveButtonClickListener {
             val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))

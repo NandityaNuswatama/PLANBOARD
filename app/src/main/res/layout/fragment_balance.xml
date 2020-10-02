@@ -255,11 +255,12 @@
                 android:fontFamily="@font/lato"
                 android:text="@string/pemasukan"
                 android:textColor="#FFFFFF"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 app:cornerRadius="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btn_pengeluaran"
                 app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inputKeperluan" />
 
@@ -271,7 +272,7 @@
                 android:fontFamily="@font/lato"
                 android:text="@string/pengeluaran"
                 android:textColor="@color/colorAccent"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 app:cornerRadius="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

@@ -25,7 +25,7 @@ class PlanNewFragment : Fragment() {
     }
 
     lateinit var planViewModel: PlanViewModel
-    lateinit var urgency: TypedArray
+    private lateinit var urgent: TypedArray
     private var newId: Int = 0
 
     override fun onCreateView(
@@ -68,14 +68,14 @@ class PlanNewFragment : Fragment() {
     }
 
     private fun saveToDatabase(){
-        val checked = radioGroup.checkedRadioButtonId
         var index = 0
+        val checked = radioGroup.checkedRadioButtonId
         when(checked){
             R.id.rb_biasa -> index = 0
             R.id.rb_penting -> index = 1
             R.id.rb_sangat_penting -> index = 2
         }
-        urgency = resources.obtainTypedArray(R.array.urgency)
+        urgent = resources.obtainTypedArray(R.array.urgency)
         if (inputTarget.text.isEmpty()) {
             inputTarget.setText(R.string.np_target)
             val plan = Plan(
@@ -83,7 +83,7 @@ class PlanNewFragment : Fragment() {
                 title = inputJudul.text.toString(),
                 plan = inputRencana.text.toString(),
                 date = inputTarget.text.toString(),
-                urgent = urgency.getResourceId(index, 0)
+                urgent = urgent.getResourceId(index, 0)
             )
             planViewModel.insert(plan)
         }
@@ -92,6 +92,7 @@ class PlanNewFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun showDatePicker(){
         val builder = MaterialDatePicker.Builder.datePicker()
+        builder.setTitleText("Pilih tanggal")
         val picker = builder.build()
         picker.addOnPositiveButtonClickListener {
             val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
