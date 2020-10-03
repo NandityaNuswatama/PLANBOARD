@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.planboard.R
 import com.example.planboard.ui.plan.PlanNewFragment.Companion.EXTRA_ID
 import com.example.planboard.util.ViewModelFactory
@@ -49,7 +50,8 @@ class PlanFragment : Fragment() {
             tv_hint_plan.visibility = View.GONE
             planAdapter = PlanAdapter(requireActivity())
             rv_plan.adapter = planAdapter
-            rv_plan.layoutManager = GridLayoutManager(activity, 2)
+            rv_plan.layoutManager = StaggeredGridLayoutManager(2, 1)
+            StaggeredGridLayoutManager.VERTICAL
         }else{
             img_empty_plan.visibility = View.VISIBLE
             tv_hint_plan.visibility = View.VISIBLE

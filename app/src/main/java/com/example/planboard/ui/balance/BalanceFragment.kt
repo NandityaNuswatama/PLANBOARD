@@ -92,6 +92,7 @@ class BalanceFragment : Fragment(), View.OnClickListener {
         if (getTableRow() > 0) {
             img_money_tree.visibility = View.GONE
             tv_balance_hint.visibility = View.GONE
+            tv_rule.visibility = View.GONE
             balanceAdapter = BalanceAdapter(requireActivity())
             rv_balance.adapter = balanceAdapter
             rv_balance.layoutManager = LinearLayoutManager(requireContext())
@@ -100,6 +101,7 @@ class BalanceFragment : Fragment(), View.OnClickListener {
         else{
             img_money_tree.visibility = View.VISIBLE
             tv_balance_hint.visibility = View .VISIBLE
+            tv_rule.visibility = View.VISIBLE
         }
     }
 
@@ -108,7 +110,6 @@ class BalanceFragment : Fragment(), View.OnClickListener {
             balance?.let { balanceAdapter.setBalance(it as ArrayList<Balance>)
             }
         })
-
     }
 
     private fun saveToDatabase(id: Int){

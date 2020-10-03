@@ -20,8 +20,6 @@ class NewsDetailFragment : Fragment() {
         var newsUrl = "url"
     }
 
-    private lateinit var compositeDisposable: CompositeDisposable
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,20 +30,16 @@ class NewsDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        progressBar2.visibility = View.VISIBLE
         webView.webViewClient = object : WebViewClient(){
             override fun onPageFinished(view: WebView, url: String) {
-                progressBar2.visibility = View.INVISIBLE
+                progressBar2.visibility = View.GONE
             }
         }
-
         if(arguments != null){
             val url = requireArguments().getString(newsUrl).toString()
             webView.loadUrl(url)
             Timber.tag("NEWS DETAIL").d(url)
         }
-
-        compositeDisposable = CompositeDisposable()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -63,6 +57,6 @@ class NewsDetailFragment : Fragment() {
             val planboardActivity = activity as PlanboardActivity
             planboardActivity.nav_view.visibility = View.VISIBLE
         }
-        compositeDisposable.clear()
+        webView.stopLoading()
     }
 }
