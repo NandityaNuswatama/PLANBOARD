@@ -144,7 +144,7 @@ class NewsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, MaterialS
     }
 
     private fun setSpinner(){
-        newsSpinner.setItems("Bisnis", "Kesehatan", "Teknologi", "Hiburan", "Olahraga", "Pengetahuan")
+        newsSpinner.setItems("Bisnis", "Hiburan", "Kesehatan", "Olahraga", "Pengetahuan", "Teknologi")
         newsSpinner.setOnItemSelectedListener(this)
     }
 

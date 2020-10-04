@@ -49,10 +49,9 @@ class MyNotification(context: Context): ContextWrapper(context){
         }
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
         return NotificationCompat.Builder(applicationContext, CHANNEL_ID)
-            .setContentTitle("PlanBoard")
-            .setContentText("Coba Alarm")
-            .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.lambang_bulat))
-            .setSmallIcon(R.drawable.ic_notifications_black_24dp)
+            .setContentTitle("Kedisiplinan adalah Kunci!")
+            .setContentText("Jangan lupa perbanyak info dan rencakanan kegiatanmu!")
+            .setSmallIcon(R.drawable.lambang_bulat)
             .setContentIntent(pendingIntent)
             .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
     }

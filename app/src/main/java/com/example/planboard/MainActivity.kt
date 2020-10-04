@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(splashIntent)
             finish()
         }
-        Handler().postDelayed(runnable, 1600)
+        Handler().postDelayed(runnable, 1550)
         startAlarm(this)
     }
 
