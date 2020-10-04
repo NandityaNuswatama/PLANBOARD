@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.planboard.R
@@ -23,12 +24,17 @@ import java.util.concurrent.atomic.AtomicLong
 import kotlin.collections.ArrayList
 
 class BalanceFragment : Fragment(), View.OnClickListener {
+    companion object{
+        private const val TAG = "BalanceFragment"
+    }
 
     private lateinit var balanceViewModel: BalanceViewModel
     private lateinit var balanceAdapter: BalanceAdapter
     private lateinit var counter: AtomicInteger
     private lateinit var money: AtomicLong
     private lateinit var myCurrentBalance: String
+    private lateinit var fragment: Fragment
+    private lateinit var fragmentTransaction: FragmentTransaction
     private val idIncome = 101
     private val idOutcome = 110
 
@@ -47,6 +53,7 @@ class BalanceFragment : Fragment(), View.OnClickListener {
         balanceAdapter = BalanceAdapter(requireActivity())
         counter = AtomicInteger()
         money = AtomicLong()
+        fragmentTransaction = parentFragmentManager.beginTransaction()
 
         myCurrentBalance = getCurrentBalance(getTableRow()).toString()
         tv_balance.text = myCurrentBalance
@@ -64,21 +71,18 @@ class BalanceFragment : Fragment(), View.OnClickListener {
             R.id.btn_pemasukan -> {
                 saveToDatabase(idIncome)
                 getTableRow()
-                showRecyclerView()
                 clearInput()
                 tv_balance.text = getCurrentBalance(getTableRow()).toString()
             }
             R.id.btn_pengeluaran -> {
                 saveToDatabase(idOutcome)
                 getTableRow()
-                showRecyclerView()
                 clearInput()
                 tv_balance.text = getCurrentBalance(getTableRow()).toString()
             }
             R.id.btn_delete_balance -> {
                 deleteFromDatabase()
                 getTableRow()
-                showRecyclerView()
                 tv_balance.text = getCurrentBalance(getTableRow()).toString()
             }
             R.id.btn_dateBalance -> {
@@ -113,6 +117,7 @@ class BalanceFragment : Fragment(), View.OnClickListener {
     }
 
     private fun saveToDatabase(id: Int){
+        refreshFragment()
         when(id){
             idIncome -> {
                 if (inputNominal.text.isNotEmpty() && inputKeperluan.text.isNotEmpty() && inputTanggal.text.isNotEmpty()) {
@@ -140,7 +145,6 @@ class BalanceFragment : Fragment(), View.OnClickListener {
                         purpose = inputKeperluan.text.toString(),
                         date = inputTanggal.text.toString()
                     )
-                    showRecyclerView()
                     balanceViewModel.insert(mBalance)
                     Timber.tag("totalBalance: ").d(mBalance.totalBalance.toString())
                 } else{
@@ -168,6 +172,7 @@ class BalanceFragment : Fragment(), View.OnClickListener {
     }
 
     private fun deleteFromDatabase(){
+        refreshFragment()
         getTableRow()
         balanceViewModel.deleteById(getTableRow())
     }
@@ -210,5 +215,11 @@ class BalanceFragment : Fragment(), View.OnClickListener {
                     "${calendar.get(Calendar.MONTH) + 1}-${calendar.get(Calendar.YEAR)}")
         }
         picker.show(parentFragmentManager, picker.toString())
+    }
+
+    private fun refreshFragment(){
+        fragmentTransaction.detach(this)
+        fragmentTransaction.attach(this)
+        fragmentTransaction.commit()
     }
 }
