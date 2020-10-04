@@ -1,13 +1,13 @@
 package com.example.planboard.ui.plan
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.planboard.R
 import com.example.planboard.ui.plan.PlanNewFragment.Companion.EXTRA_ID
@@ -41,6 +41,7 @@ class PlanFragment : Fragment() {
             bundle.putInt(EXTRA_ID, getCount()+1)
             findNavController().navigate(R.id.action_navigation_dashboard_to_planNewFragment)
         }
+
         showRecyclerview()
     }
 

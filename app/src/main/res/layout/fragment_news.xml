@@ -9,20 +9,50 @@
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_berita"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:listitem="@layout/item_news" />
+        app:layout_constraintTop_toBottomOf="@+id/newsSpinner">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_berita"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:listitem="@layout/item_news" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <com.jaredrummler.materialspinner.MaterialSpinner
+        android:id="@+id/newsSpinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:ms_arrow_tint="@color/colorAccent2"
+        app:ms_hint_color="@android:color/black"
+        app:ms_hint="Pilih tema berita hari ini"
+        app:ms_text_color="@android:color/black"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/news_lottie"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="100dp"
+        app:layout_constraintEnd_toEndOf="@+id/swipe_refresh"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/swipe_refresh"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="news.json"
+        app:lottie_loop="false"
+        app:lottie_speed="2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
