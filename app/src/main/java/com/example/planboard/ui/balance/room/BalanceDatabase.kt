@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 @Database(entities = [Balance::class], version = 1, exportSchema = false)
 abstract class BalanceDatabase: RoomDatabase() {
-        abstract fun balanceDao(): BalanceDao
+    abstract fun balanceDao(): BalanceDao
 
     companion object{
         @Volatile

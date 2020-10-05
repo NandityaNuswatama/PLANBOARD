@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -16,8 +15,8 @@ import com.example.planboard.ui.balance.room.Balance
 import com.example.planboard.util.ViewModelFactory
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.android.synthetic.main.fragment_balance.*
-import kotlinx.android.synthetic.main.fragment_plan_new.*
 import timber.log.Timber
+import java.text.NumberFormat
 import java.util.*
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicLong
@@ -32,9 +31,8 @@ class BalanceFragment : Fragment(), View.OnClickListener {
     private lateinit var balanceAdapter: BalanceAdapter
     private lateinit var counter: AtomicInteger
     private lateinit var money: AtomicLong
-    private lateinit var myCurrentBalance: String
-    private lateinit var fragment: Fragment
     private lateinit var fragmentTransaction: FragmentTransaction
+    private var myCurrentBalance: Long = 0
     private val idIncome = 101
     private val idOutcome = 110
 
@@ -55,8 +53,9 @@ class BalanceFragment : Fragment(), View.OnClickListener {
         money = AtomicLong()
         fragmentTransaction = parentFragmentManager.beginTransaction()
 
-        myCurrentBalance = getCurrentBalance(getTableRow()).toString()
-        tv_balance.text = myCurrentBalance
+        myCurrentBalance = getCurrentBalance(getTableRow())
+        val myMoney = moneyFormat(myCurrentBalance)
+        tv_balance.text = myMoney
 
         showRecyclerView()
 
@@ -71,13 +70,11 @@ class BalanceFragment : Fragment(), View.OnClickListener {
             R.id.btn_pemasukan -> {
                 saveToDatabase(idIncome)
                 getTableRow()
-                clearInput()
                 tv_balance.text = getCurrentBalance(getTableRow()).toString()
             }
             R.id.btn_pengeluaran -> {
                 saveToDatabase(idOutcome)
                 getTableRow()
-                clearInput()
                 tv_balance.text = getCurrentBalance(getTableRow()).toString()
             }
             R.id.btn_delete_balance -> {
@@ -96,7 +93,6 @@ class BalanceFragment : Fragment(), View.OnClickListener {
         if (getTableRow() > 0) {
             img_money_tree.visibility = View.GONE
             tv_balance_hint.visibility = View.GONE
-            tv_rule.visibility = View.GONE
             balanceAdapter = BalanceAdapter(requireActivity())
             rv_balance.adapter = balanceAdapter
             rv_balance.layoutManager = LinearLayoutManager(requireContext())
@@ -105,7 +101,6 @@ class BalanceFragment : Fragment(), View.OnClickListener {
         else{
             img_money_tree.visibility = View.VISIBLE
             tv_balance_hint.visibility = View .VISIBLE
-            tv_rule.visibility = View.VISIBLE
         }
     }
 
@@ -152,6 +147,7 @@ class BalanceFragment : Fragment(), View.OnClickListener {
                 }
             }
         }
+        clearInput()
     }
 
     private fun calculateTotalBalance(id: Int): Long{
@@ -221,5 +217,11 @@ class BalanceFragment : Fragment(), View.OnClickListener {
         fragmentTransaction.detach(this)
         fragmentTransaction.attach(this)
         fragmentTransaction.commit()
+    }
+
+    private fun moneyFormat(money: Long): String{
+        val localeID = Locale("in", "ID")
+        val format = NumberFormat.getCurrencyInstance(localeID)
+        return format.format(money)
     }
 }

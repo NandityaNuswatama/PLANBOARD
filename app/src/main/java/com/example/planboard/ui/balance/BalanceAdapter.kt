@@ -8,16 +8,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.planboard.R
 import com.example.planboard.ui.balance.room.Balance
 import kotlinx.android.synthetic.main.item_balance.view.*
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class BalanceAdapter internal constructor(activity: Activity): RecyclerView.Adapter<BalanceAdapter.BalanceViewHolder>() {
     private val nominal_= ArrayList<Balance>()
 
     inner class BalanceViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(entityBalance: Balance){
-            with(itemView){
+            val myMoney = moneyFormat(entityBalance.nominal.toLong())
+                with(itemView){
                 tv_balance_item.text = entityBalance.totalBalance.toString()
                 tv_tanda.text = entityBalance.sign
-                tv_nominal.text = entityBalance.nominal
+                tv_nominal.text = myMoney
                 tv_purpose.text = entityBalance.purpose
                 tv_date_balance.text = entityBalance.date
             }
@@ -41,5 +45,11 @@ class BalanceAdapter internal constructor(activity: Activity): RecyclerView.Adap
         this.nominal_.clear()
         this.nominal_.addAll(balance)
         notifyDataSetChanged()
+    }
+
+    private fun moneyFormat(money: Long): String{
+        val localeID = Locale("in", "ID")
+        val format = NumberFormat.getCurrencyInstance(localeID)
+        return format.format(money)
     }
 }

@@ -9,8 +9,6 @@ import com.example.planboard.ui.balance.room.BalanceDatabase
 import com.example.planboard.ui.balance.room.BalanceRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class BalanceViewModel(application: Application) : AndroidViewModel(application) {
@@ -41,11 +39,5 @@ class BalanceViewModel(application: Application) : AndroidViewModel(application)
 
     fun deleteById(id: Int) = viewModelScope.launch(Dispatchers.IO){
         balanceRepository.deleteById(id)
-    }
-
-    fun getToday(): String {
-        val dateFormat = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
-        val date = Date()
-        return dateFormat.format(date)
     }
 }

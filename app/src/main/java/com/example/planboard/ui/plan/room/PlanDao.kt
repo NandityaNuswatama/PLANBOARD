@@ -5,7 +5,7 @@ import androidx.room.*
 
 @Dao
 interface PlanDao {
-    @Query("SELECT * from table_plan")
+    @Query("SELECT * from table_plan ORDER BY urgent DESC")
     fun getPlans(): LiveData<List<Plan>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
